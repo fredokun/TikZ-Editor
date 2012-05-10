@@ -27,6 +27,3 @@ pip-log.txt
 .mr.developer.cfg
 
 .DS_Store
-*.log
-*.aux
-*.pdf
