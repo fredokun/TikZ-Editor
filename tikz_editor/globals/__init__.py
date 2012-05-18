@@ -13,11 +13,9 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PYRCC = pyrcc4
-
-all: tikz_editor/resources/__init__.py
-
-# Builds the resources module using PyQt's pyrcc4.
-# see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
-tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
-	$(PYRCC) -o $@ $<
+APPLICATION_NAME = u"TikZ Editor"
+ORGANIZATION_NAME = u"UPMC"
+ORGANIZATION_DOMAIN = u"upmc.fr"
+AUTHORS = u"Micka&euml;l Menu"  # add authors separated by commas -- accents must be encoded as HTML entities
+VERSION = u"1.0"
+GIT_VERSION = u""  # returned by "git describe --always" in the GIT repository

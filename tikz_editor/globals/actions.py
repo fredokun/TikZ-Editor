@@ -13,11 +13,32 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PYRCC = pyrcc4
+# user actions
+ABOUT = "about"
+CLOSE = "close"
+COPY = "copy"
+COPY_SOURCE = "copySource"
+COPY_PREAMBLE = "copyPreamble"
+COPY_PREAMBLE_AND_SOURCE = "copyPreambleAndSource"
+CUT = "cut"
+NEW = "new"
+OPEN = "open"
+PASTE = "paste"
+PREFERENCES = "preferences"
+PREVIEW = "preview"
+REDO = "redo"
+QUIT = "quit"
+SAVE = "save"
+SAVE_ALL = "saveAll"
+SAVE_AS = "saveAs"
+SHOW_ERRORS = "showErrors"
+SHOW_LOGS = "showLogs"
+SHOW_PREAMBLE = "showPreamble"
+SHOW_SOURCE = "showSource"
+UNDO = "undo"
 
-all: tikz_editor/resources/__init__.py
-
-# Builds the resources module using PyQt's pyrcc4.
-# see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
-tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
-	$(PYRCC) -o $@ $<
+# menus
+FILE_MENU = "fileMenu"
+EDIT_MENU = "editMenu"
+COPY_MENU = "copyMenu"
+SNIPPETS_MENU = "snippetsMenu"

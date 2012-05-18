@@ -13,11 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PYRCC = pyrcc4
+from factory import ViewFactory
+from document import DocumentView
 
-all: tikz_editor/resources/__init__.py
-
-# Builds the resources module using PyQt's pyrcc4.
-# see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
-tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
-	$(PYRCC) -o $@ $<
+__all__ = ['ViewFactory', 'DocumentView']

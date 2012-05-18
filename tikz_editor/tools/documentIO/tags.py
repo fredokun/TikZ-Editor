@@ -13,11 +13,9 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PYRCC = pyrcc4
-
-all: tikz_editor/resources/__init__.py
-
-# Builds the resources module using PyQt's pyrcc4.
-# see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
-tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
-	$(PYRCC) -o $@ $<
+# tags used in TikZ files to separate the preamble and source
+TIKZ_TAG = "%!tikz editor 1.0"
+PREAMBLE_BEGIN_TAG = "%!tikz preamble begin"
+PREAMBLE_END_TAG = "%!tikz preamble end"
+SOURCE_BEGIN_TAG = "%!tikz source begin"
+SOURCE_END_TAG = "%!tikz source end"

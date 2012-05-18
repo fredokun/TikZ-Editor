@@ -13,11 +13,27 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PYRCC = pyrcc4
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
-all: tikz_editor/resources/__init__.py
 
-# Builds the resources module using PyQt's pyrcc4.
-# see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
-tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
-	$(PYRCC) -o $@ $<
+class LogsView(QTextEdit):
+	"""
+	The logs view displays pdf2image converter logs.
+	"""
+	def __init__(self, parent=None):
+		super(LogsView, self).__init__(parent)
+		self.app_controller = None
+
+	def initView(self):
+		self.setReadOnly(True)
+
+	def clearLogs(self):
+		self.clear()
+
+	def setLogs(self, logs):
+		self.setHtml(logs)
+		self.scrollToEnd()
+
+	def scrollToEnd(self):
+		self.moveCursor(QTextCursor.End)

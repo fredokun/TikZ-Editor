@@ -13,11 +13,26 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-PYRCC = pyrcc4
+from PyQt4.QtCore import *
 
-all: tikz_editor/resources/__init__.py
+import tikz_editor.resources
+from tikz_editor.tools import File
 
-# Builds the resources module using PyQt's pyrcc4.
-# see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
-tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
-	$(PYRCC) -o $@ $<
+
+class AboutController(QObject):
+	"""
+	Controller for the "About" dialog.
+	"""
+	def __init__(self):
+		super(AboutController, self).__init__()
+		self.view = None
+		self.app_controller = None
+
+	def initController(self):
+		self.view.setImage(":/icon_about.png")
+		self.view.setInfoHTML(File.readContentFromFilePath(":/about.html"))
+
+	@pyqtSlot()
+	def showAbout(self):
+		self.view.show()
+		self.view.raise_()

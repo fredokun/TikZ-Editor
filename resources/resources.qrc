@@ -1,7 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-	<qresource>
-		<file>icon_about.png</file>
-		<file>about.html</file>
-	</qresource>
-</RCC>
