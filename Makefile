@@ -15,9 +15,23 @@
 
 PYRCC = pyrcc4
 
-all: tikz_editor/resources/__init__.py
+all:
+	@echo "Use one of the following targets:"
+	@echo "install:\tRuns the Python installation script"
+	@echo "resources:\t(dev) Builds the resources module using PyQt's pyrcc4"
+
+resources: tikz_editor/resources/__init__.py
 
 # Builds the resources module using PyQt's pyrcc4.
 # see: http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/resources.html
 tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
 	$(PYRCC) -o $@ $<
+
+# Alias to "python setup.py install"
+install:
+	python setup.py install
+
+clean:
+	rm -rf TikZEditor.egg-info
+	rm -rf build
+	rm -rf dist
