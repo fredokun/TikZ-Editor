@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
+# automatically downloads setuptools if needed
+import distribute_setup
+distribute_setup.use_setuptools()
+
 from setuptools import setup, find_packages
 
 setup(
