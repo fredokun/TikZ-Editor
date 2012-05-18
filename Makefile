@@ -29,7 +29,7 @@ tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
 
 # Alias to "python setup.py install"
 install:
-	python setup.py install
+	python setup.py install --install-scripts=/usr/bin
 
 clean:
 	rm -rf TikZEditor.egg-info

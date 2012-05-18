@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # Copyright 2012 (C) Mickael Menu <mickael.menu@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,8 +16,12 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 APPLICATION_NAME = u"TikZ Editor"
+APPLICATION_DESCRIPTION = u"TikZ (LaTeX) code editor"
 ORGANIZATION_NAME = u"UPMC"
 ORGANIZATION_DOMAIN = u"upmc.fr"
-AUTHORS = u"Micka&euml;l Menu"  # add authors separated by commas -- accents must be encoded as HTML entities
+AUTHORS = u"Mickaël Menu"  # add authors separated by commas
+AUTHORS_HTML = u"Micka&euml;l Menu"  # add authors separated by commas -- accents must be encoded as HTML entities
+EMAIL = u"mickael.menu@gmail.com"
+WEBSITE = u"http://github.com/mickael-menu/TikZ-Editor"
 VERSION = u"1.0"
 GIT_VERSION = u""  # returned by "git describe --always" in the GIT repository

@@ -32,7 +32,7 @@ class AboutView(QMainWindow):
 		if globals.GIT_VERSION != u'':
 			version += ' (%s)' % globals.GIT_VERSION
 		self.version_label = QLabel("<center><small>Version %s</small></center>" % version)
-		self.copyright_label = QLabel("<center><small>Copyright 2012 %s</small></center>" % globals.AUTHORS)
+		self.copyright_label = QLabel("<center><small>Copyright 2012 %s</small></center>" % globals.AUTHORS_HTML)
 		self.info_text = QTextEdit()
 
 	def initView(self):

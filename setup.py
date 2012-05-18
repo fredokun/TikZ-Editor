@@ -21,23 +21,26 @@ distribute_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
+import tikz_editor.globals as globals
+
 setup(
-	name = "TikZEditor",
-	version = "1.0",
+	name = globals.APPLICATION_NAME,
+	version = globals.VERSION,
 	packages = find_packages(),
 	include_package_data = True,
 	package_data = {'': ['*.png', '*.html']},
 
 	# auto-creates a GUI Python script to launch the application
-	entry_points = {'gui_scripts': ['tikz-editor = tikz_editor:start'], 'setuptools.installation': [
-            'eggsecutable = tikz_editor:start',
-        ]},
+	entry_points = {
+		'gui_scripts': ['tikz-editor = tikz_editor:start'],
+		'setuptools.installation': ['eggsecutable = tikz_editor:start']
+	},
 
 	# metadatas
-	author       = "Mickael Menu",
-	author_email = "mickael.menu@gmail.com",
-	description  = "TikZ (LaTeX) code editor",
+	author       = globals.AUTHORS,
+	author_email = globals.EMAIL,
+	description  = globals.APPLICATION_DESCRIPTION,
 	license      = "GPL v2",
 	keywords     = "tikz code editor latex preview",
-	url          = "http://github.com/mickael-menu/TikZ-Editor",
+	url          = globals.WEBSITE,
 )
