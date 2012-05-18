@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
+# automatically downloads setuptools if needed
+import distribute_setup
+distribute_setup.use_setuptools()
+
 from setuptools import setup, find_packages
 
 setup(
@@ -25,7 +29,7 @@ setup(
 	package_data = {'': ['*.png', '*.html']},
 
 	# auto-creates a GUI Python script to launch the application
-	entry_points = {'gui_scripts': ['tikz_editor = tikz_editor:start'], 'setuptools.installation': [
+	entry_points = {'gui_scripts': ['tikz-editor = tikz_editor:start'], 'setuptools.installation': [
             'eggsecutable = tikz_editor:start',
         ]},
 
