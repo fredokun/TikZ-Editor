@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
+APP_NAME = $(shell python tikz_editor/globals APPLICATION_NAME)
+APP_VERSION = $(shell python tikz_editor/globals VERSION)
 PYRCC = pyrcc4
 DEPLOY_DIR = $(shell pwd)/deployment
 
@@ -21,6 +23,7 @@ all:
 	@echo " install:    Run the Python installation script"
 	@echo " clean:      Remove temporary build files"
 	@echo " resources:  (dev) Build the PyQt resources module (dep. pyrcc4)"
+	@echo " app:        (dev) Build a Mac OS X APP bundle (dep. pyinstaller)"
 	@echo " deb:        (dev) Build an Ubuntu DEB package (dep. dh_make, debuild)"
 
 
@@ -49,13 +52,35 @@ deb: clean_deb
 	DEBFULLNAME="$(shell python tikz_editor/globals MAINTAINER)" \
 	dh_make -s -n -r cdbs -c gpl2 \
 		-e "$(shell python tikz_editor/globals EMAIL)" \
-		-p "tikz-editor_$(shell python tikz_editor/globals VERSION)" \
+		-p "tikz-editor_$(APP_VERSION)" \
 		-t $(DEPLOY_DIR)/deb
 
 	rm -rf debian/*.ex
 	rm -rf debian/README*
 
 	debuild -us -uc
+
+
+# Build a Mac OS X APP bundle
+app: clean_app
+ifeq ($(PYINSTALLER),)
+	@echo "The path to pyinstaller is not set in PYINSTALLER.\n\
+	Try:\tPYINSTALLER=\"path/to/pyinstaller\" make app"
+else
+	python $(PYINSTALLER)/pyinstaller.py -wy \
+		-n "$(APP_NAME)" \
+		-i "deployment/mac/icon.icns" \
+		tikz_editor.pyw
+	rm -rf "dist/$(APP_NAME)"
+	cp "deployment/mac/icon.icns" "dist/$(APP_NAME).app/Contents/Resources/icon-windowed.icns"
+
+	ln -s /Applications dist
+	hdiutil create -fs HFS+ -volname "$(APP_NAME)" -srcfolder dist "dist/$(APP_NAME)-$(APP_VERSION).dmg"
+	#hdiutil internet-enable -yes "dist/$(APP_NAME)-$(APP_VERSION).dmg"
+	rm dist/Applications
+
+	open dist
+endif
 
 
 #####################
@@ -73,4 +98,10 @@ clean_deb:
 	rm -rf build
 	rm -rf .pc
 
-clean: clean_setup clean_deb
+clean_app:
+	rm -rf build
+	rm -rf dist
+	rm -f *.log
+	rm -f *.spec
+
+clean: clean_setup clean_deb clean_app
