@@ -30,12 +30,6 @@ setup(
 	include_package_data = True,
 	package_data = {'': ['*.png', '*.html']},
 
-	# auto-creates a GUI Python script to launch the application
-	entry_points = {
-		'gui_scripts': ['tikz-editor = tikz_editor:start'],
-		'setuptools.installation': ['eggsecutable = tikz_editor:start']
-	},
-
 	# metadatas
 	author       = globals.AUTHORS,
 	author_email = globals.EMAIL,
@@ -43,4 +37,7 @@ setup(
 	license      = "GPL v2",
 	keywords     = "tikz code editor latex preview",
 	url          = globals.WEBSITE,
+
+	# auto-creates a GUI Python script to launch the application
+	entry_points = {'gui_scripts': ['tikz-editor = tikz_editor:start']}
 )
