@@ -23,6 +23,7 @@ all:
 	@echo " install:    Run the Python installation script"
 	@echo " clean:      Remove temporary build files"
 	@echo " resources:  (dev) Build the PyQt resources module (dep. pyrcc4)"
+	@echo " tgz:        (dev) Build a gzipped source archive with tar"
 	@echo " app:        (dev) Build a Mac OS X APP bundle (dep. pyinstaller)"
 	@echo " deb:        (dev) Build an Ubuntu DEB package (dep. dh_make, debuild)"
 
@@ -46,6 +47,18 @@ tikz_editor/resources/__init__.py: tikz_editor/resources/resources.qrc
 #######################
 # Deployment commands #
 #######################
+
+# Build a gzipped source archive with tar
+tgz: clean_tgz
+	mkdir -p "tikz-editor_$(APP_VERSION)"
+	cp -r tikz_editor tikz_editor.pyw \
+		setup.py distribute_setup.py \
+		LICENSE \
+		"tikz-editor_$(APP_VERSION)/"
+	cp $(DEPLOY_DIR)/tgz/README "tikz-editor_$(APP_VERSION)/"
+	tar -zcvf "tikz-editor_$(APP_VERSION).tgz" "tikz-editor_$(APP_VERSION)"
+	rm -rf "tikz-editor_$(APP_VERSION)"
+
 
 # Build an Ubuntu DEB package
 deb: clean_deb
@@ -91,7 +104,9 @@ clean_setup:
 	rm -rf *.egg-info
 	rm -rf build
 	rm -rf dist
-	find . -type f -name "*.pyc" -exec rm {} \;
+
+clean_tgz:
+	rm -rf tikz-editor_$(APP_VERSION)*
 
 clean_deb:
 	rm -rf debian
@@ -104,4 +119,6 @@ clean_app:
 	rm -f *.log
 	rm -f *.spec
 
-clean: clean_setup clean_deb clean_app
+clean: clean_setup clean_tgz clean_deb clean_app
+	find . -type f -name "*.pyc" -exec rm {} \;
+	find . -name ".DS_Store" -exec rm -rf {} \;
