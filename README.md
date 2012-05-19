@@ -35,29 +35,3 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 (http://www.riverbankcomputing.com/software/qscintilla)
-
-Versions:
-	PyQt  >= 4.3
-	Python >= 2.6
-
-Mac OS X (with MacPorts):
-	py26-qscintilla
-	py26-pyqt4
-
-Linux (with Ubuntu's apt-get):
-	python-qt4
-	python-qscintilla2
-	imagemagick
-
-	python-setuptools (pour dev)
-
-
-To deploy on Mac OS X (with MacPorts):
-	Avec py2app:
-	py26-py2app
-
-	OU avec pyinstaller:
-	py26-altgraph
-	py26-modulegraph
-	1) inclure le module atexit dans les sources
-	2) faire python pyinstaller.py -w (pour faire un .app) -y (pour supprimer le repertoire output sans ocnfirmation) /path/vers/source.py
