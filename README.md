@@ -1,5 +1,12 @@
 TikZ Editor
 ===========
+<!--
+This  file is used to generate the TikZ Editor's homepage at
+http://github.com/mickael-menu/TikZ-Editor.
+
+For deployment and installation instructions, please look at the regular README
+file.
+-->
 
 TikZ Editor is a free code editor for the LaTeX graphic package TikZ.
 

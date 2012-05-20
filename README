@@ -1,0 +1,125 @@
+TIKZ EDITOR
+===========
+
+  Thank you for downloading TikZ Editor source repository.
+
+  It is strongly recommended to install TikZ Editor using your OS's package
+  system rather than using setup.py yourself. If you're using Mac OS X or Ubuntu
+  Linux, please download the suitable package at:
+
+    http://github.com/mickael-menu/TikZ-Editor
+
+
+DEPENDENCIES
+------------
+
+  If you don't have this option, please make sure you satisfy TikZ Editor's
+  dependencies:
+
+   - Python version 2.6+ -- http://www.python.org/
+   - PyQt version 4.3+ -- http://www.riverbankcomputing.co.uk/software/pyqt
+   - QScintilla 2.6+ -- http://www.riverbankcomputing.com/software/qscintilla
+   - ImageMagick -- http://www.imagemagick.org/
+
+  On Ubuntu Linux, you can install all these required packages using:
+
+    sudo apt-get install python-qt4 python-qscintilla2 imagemagick
+
+
+INSTALLATION
+------------
+
+  You can test TikZ Editor directly from the current directory using:
+
+    python tikz_editor.pyw
+
+  Once you want to install it properly on your system, run:
+
+    sudo make install
+
+
+DEPLOYMENT
+----------
+
+  You may want to build distribution packages for a specific OS. The included
+  Makefile provides facilities to automatically build distribution packages.
+
+  DEPLOYMENT ON UBUNTU LINUX
+  --------------------------
+    Please make sure you have the following packages installed before going
+    further:
+
+      dh-make
+      devscripts
+      build-essential
+      fakeroot
+      python-setuptools
+
+    You can now build the DEB package for Ubuntu Linux using:
+
+      make deb
+
+    Press Enter after the first step to start the building. After that, you
+    will find the generated DEB package along a few other build files in the
+    parent directory.
+
+
+  DEPLOYMENT ON MAC OS X
+  ----------------------
+    Please make sure you have the following Python packages installed before
+    going further:
+
+      altgraph
+      modulegraph
+
+    Using MacPorts (www.macports.org), run this to install them:
+
+      sudo port install py-altgraph py-modulegraph
+
+    Moreover, you will need pyinstaller (www.pyinstaller.org) to build the APP
+    bundle. The latest development version is recommended on a 64bit Mac OS X
+    computer. Pyinstaller is not installable, so you have to keep it in a
+    directory of your choice.
+
+    You can now build the APP bundle, after setting the path to pyinstaller into
+    the PYINSTALLER shell variable:
+
+      export PYINSTALLER="/path/to/pyinstaller/"
+      make app
+
+    or directly:
+
+      PYINSTALLER="/path/to/pyinstaller/" make app
+
+    The Makefile will produce the APP bundle of the application in the dist/
+    subdirectory. It will also build a DMG archive of the application containg
+    the APP bundle and a symbolic link to the /Applications folder for
+    distribution.
+
+
+  DEPLOYMENT OF A SOURCE ARCHIVE
+  ------------------------------
+    To build a source archive for other platforms, stripped of all unnecessary
+    files like README.md or the deployment directory, run:
+
+      make tgz
+
+    This will produce a TGZ archive file in the current directory.
+
+
+LICENSE
+-------
+
+  Copyright © 2012 Mickaël Menu
+
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along with
+  this program. If not, see <http://www.gnu.org/licenses/>.

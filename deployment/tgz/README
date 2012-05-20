@@ -1,5 +1,5 @@
-TIKZ EDITOR 1.0
-===============
+TIKZ EDITOR
+===========
 
   Thank you for downloading TikZ Editor sources.
 
@@ -33,7 +33,7 @@ INSTALLATION
 
   Once you want to install it properly on your system, run:
 
-    python setup.py install
+    sudo python setup.py install
 
 
 LICENSE
