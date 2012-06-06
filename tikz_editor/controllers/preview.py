@@ -60,11 +60,12 @@ class PreviewController(QObject):
 		self.preview_view.showErrorBackground()
 
 	def requestPreviewUpdate(self):
-		self.request_preview_update = True
 		if self._isEndOfInstruction():
 			self.updatePreview()
-		else:
+		elif Preferences.getAutoPreview():
 			self.updatePreviewAfterTypingPause()
+		else:
+			self.request_preview_update = False
 
 	def _isEndOfInstruction(self):
 		"""
@@ -77,10 +78,14 @@ class PreviewController(QObject):
 		"""
 		Updates the preview when the user is making a pause while typing.
 		"""
-		if (datetime.now() - self.last_time_content_changed).microseconds >= 500000:
+		preview_threshold = Preferences.getPreviewThreshold()
+		time_delta = datetime.now() - self.last_time_content_changed
+		elapsed_ms = time_delta.seconds * 1000 + time_delta.microseconds / 1000
+		if elapsed_ms >= preview_threshold:
 			self.updatePreview()
 		else:
-			QTimer.singleShot(400, self.updatePreviewAfterTypingPause)
+			wait_for = max(100, Preferences.getPreviewThreshold() / 2)
+			QTimer.singleShot(wait_for, self.updatePreviewAfterTypingPause)
 
 	def updatePreview(self):
 		self.request_preview_update = False

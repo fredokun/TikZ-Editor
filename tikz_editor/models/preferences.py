@@ -44,6 +44,8 @@ class PreferencesModel(object):
 	SHOW_ERROR_MARKERS = "ShowErrorMarkers"
 	SHOW_ERROR_ANNOTATIONS = "ShowErrorAnnotations"
 	SNIPPETS = "Snippets"
+	PREVIEW_THRESHOLD = "PreviewThreshold"
+	AUTO_PREVIEW = "AutoPreview"
 
 	FEEDBACK_LOGS_VIEW = 0
 	FEEDBACK_ERRORS_VIEW = 1
@@ -317,6 +319,45 @@ class PreferencesModel(object):
 	@staticmethod
 	def defaultShowErrorAnnotations():
 		return defaults.SHOW_ERROR_MARKERS
+
+	@staticmethod
+	def hasPreviewThreshold():
+		return PreferencesModel.containsKey(PreferencesModel.PREVIEW_THRESHOLD)
+
+	@staticmethod
+	def getPreviewThreshold():
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.PREVIEW_THRESHOLD, PreferencesModel.defaultPreviewThreshold()).toInt()
+		convert_success = value[1]
+		value = value[0]
+		if not (convert_success and value > 0):
+			value = PreferencesModel.defaultThreshold()
+		return value
+
+	@staticmethod
+	def setPreviewThreshold(value):
+		assert value > 0
+		PreferencesModel.setValue(PreferencesModel.PREVIEW_THRESHOLD, value)
+
+	@staticmethod
+	def defaultPreviewThreshold():
+		return defaults.PREVIEW_THRESHOLD
+
+
+	@staticmethod
+	def hasAutoPreview():
+		return PreferencesModel.containsKey(PreferencesModel.AUTO_PREVIEW)
+
+	@staticmethod
+	def getAutoPreview():
+		return PreferencesModel.getValueOrDefault(PreferencesModel.AUTO_PREVIEW, PreferencesModel.defaultAutoPreview()).toBool()
+
+	@staticmethod
+	def setAutoPreview(value):
+		PreferencesModel.setValue(PreferencesModel.AUTO_PREVIEW, value)
+
+	@staticmethod
+	def defaultAutoPreview():
+		return defaults.AUTO_PREVIEW
 
 ################################################################################
 

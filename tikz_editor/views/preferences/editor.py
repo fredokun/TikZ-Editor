@@ -34,6 +34,8 @@ class EditorPreferencesView(QWidget):
 	autoWrapChangedSignal = pyqtSignal(bool)
 	errorMarkersChangedSignal = pyqtSignal(bool)
 	errorAnnotationsChangedSignal = pyqtSignal(bool)
+	autoPreviewChangedSignal = pyqtSignal(bool)
+	previewThresholdChangedSignal = pyqtSignal(int)
 
 	def __init__(self, parent=None):
 		super(EditorPreferencesView, self).__init__(parent)
@@ -60,6 +62,10 @@ class EditorPreferencesView(QWidget):
 		self.error_markers_choice = QCheckBox("Show error marker in margin of erroneous lines")
 		self.error_annotations_choice = QCheckBox("Show error annotations beneath erroneous lines")
 
+		self.preview_choice = QCheckBox("Trigger preview after stopping edition for")
+		self.preview_threshold_choice = QSpinBox()
+		self.preview_label = QLabel("ms")
+
 	def initView(self):
 		self._initConnections()
 		self._initWidgets()
@@ -74,6 +80,8 @@ class EditorPreferencesView(QWidget):
 		self.wrap_choice.stateChanged.connect(self._autoWrapChanged)
 		self.error_markers_choice.stateChanged.connect(self._errorMarkersChanged)
 		self.error_annotations_choice.stateChanged.connect(self._errorAnnotationsChanged)
+		self.preview_choice.stateChanged.connect(self._autoPreviewChanged)
+		self.preview_threshold_choice.valueChanged.connect(self._previewThresholdChanged)
 
 	def _initWidgets(self):
 		self.font_choice.setReadOnly(True)
@@ -95,6 +103,9 @@ class EditorPreferencesView(QWidget):
 		# self.indent_size_choice.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 		self.indent_size_choice.setMinimum(1)
 
+		self.preview_threshold_choice.setRange(100, 100000)
+		# self.preview_threshold_choice.setSuffix(" ms") # I think it's ugly
+
 	def _initLayout(self):
 		layout = QFormLayout()
 		layout.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
@@ -113,6 +124,12 @@ class EditorPreferencesView(QWidget):
 		layout.addRow(self.wrap_choice)
 		layout.addRow(self.error_markers_choice)
 		layout.addRow(self.error_annotations_choice)
+		layout.addRow(tikz_editor.views.factory.ViewFactory.createLineSeparator())
+		sublayout2 = QHBoxLayout()
+		sublayout2.addWidget(self.preview_choice)
+		sublayout2.addWidget(self.preview_threshold_choice)
+		sublayout2.addWidget(self.preview_label)
+		layout.addRow(sublayout2)
 
 		self.setLayout(layout)
 
@@ -142,6 +159,12 @@ class EditorPreferencesView(QWidget):
 
 	def _errorAnnotationsChanged(self, state):
 		self.errorAnnotationsChangedSignal.emit(state)
+
+	def _autoPreviewChanged(self, state):
+		self.autoPreviewChangedSignal.emit(state)
+
+	def _previewThresholdChanged(self, value):
+		self.previewThresholdChangedSignal.emit(value)
 
 	@property
 	def editor_font(self):
@@ -210,3 +233,19 @@ class EditorPreferencesView(QWidget):
 	@error_annotations.setter
 	def error_annotations(self, value):
 		self.error_annotations_choice.setChecked(value)
+
+	@property
+	def auto_preview(self):
+		return self.preview_choice.isChecked()
+
+	@auto_preview.setter
+	def auto_preview(self, value):
+		self.preview_choice.setChecked(value)
+
+	@property
+	def preview_threshold(self):
+		return self.preview_threshold_choice.value()
+
+	@preview_threshold.setter
+	def preview_threshold(self, value):
+		self.preview_threshold_choice.setValue(value)

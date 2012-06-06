@@ -21,6 +21,8 @@ INDENTATION_SIZE = 4
 AUTO_WRAP = True
 SHOW_ERROR_MARKERS = True
 SHOW_ERROR_ANNOTATIONS = True
+PREVIEW_THRESHOLD = 500 # times in ms before previewing when the user stop typing
+AUTO_PREVIEW = True
 
 DEFAULT_PREAMBLE_TEMPLATE = u''
 DEFAULT_TEMPLATE = u"""\\documentclass{article}

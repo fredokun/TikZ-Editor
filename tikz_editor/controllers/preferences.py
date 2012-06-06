@@ -45,6 +45,8 @@ class PreferencesController(QObject):
 		self.view.editor.autoWrapChangedSignal.connect(Preferences.setAutoWrap)
 		self.view.editor.errorMarkersChangedSignal.connect(Preferences.setShowErrorMarkers)
 		self.view.editor.errorAnnotationsChangedSignal.connect(Preferences.setShowErrorAnnotations)
+		self.view.editor.autoPreviewChangedSignal.connect(Preferences.setAutoPreview)
+		self.view.editor.previewThresholdChangedSignal.connect(Preferences.setPreviewThreshold)
 
 		self.view.editor.editorFontChangedSignal.connect(EditorView.reloadUserPreferences)
 		self.view.editor.fileEncodingChangedSignal.connect(EditorView.reloadUserPreferences)
@@ -65,6 +67,7 @@ class PreferencesController(QObject):
 		self.view.snippets.snippetsChangedSignal.connect(Preferences.setSnippets)
 		self.view.snippets.snippetsChangedSignal.connect(self.app_controller.loadSnippets)
 
+
 	def _syncViewAndModel(self):
 		self.view.editor.editor_font = Preferences.getEditorFont()
 		self.view.editor.file_encoding = Preferences.getFileEncoding()
@@ -74,6 +77,8 @@ class PreferencesController(QObject):
 		self.view.editor.auto_wrap = Preferences.getAutoWrap()
 		self.view.editor.error_markers = Preferences.getShowErrorMarkers()
 		self.view.editor.error_annotations = Preferences.getShowErrorAnnotations()
+		self.view.editor.auto_preview = Preferences.getAutoPreview()
+		self.view.editor.preview_threshold = Preferences.getPreviewThreshold()
 
 		self.view.document.latex_file_template = Preferences.getLatexFileTemplate()
 		self.view.document.preamble_template = Preferences.getPreambleTemplate()
