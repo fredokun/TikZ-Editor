@@ -10,7 +10,7 @@ file.
 
 TikZ Editor is a free code editor for the LaTeX graphic package TikZ.
 
-![Main Window](http://github.com/mickael-menu/TikZ-Editor/wiki/images/screenshot1.png)
+![Main Window](http://github.com/fredokun/TikZ-Editor/wiki/images/screenshot1.png)
 
 
 Features
