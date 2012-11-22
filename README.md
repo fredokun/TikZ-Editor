@@ -2,7 +2,7 @@ TikZ Editor
 ===========
 <!--
 This  file is used to generate the TikZ Editor's homepage at
-http://github.com/mickael-menu/TikZ-Editor.
+http://github.com/fredokun/TikZ-Editor.
 
 For deployment and installation instructions, please look at the regular README
 file.
@@ -26,9 +26,9 @@ Features
 Downloads
 ---------
 
- - [TikZ Editor 1.0 for Mac OS X](http://github.com/downloads/mickael-menu/TikZ-Editor/TikZ%20Editor-1.0.dmg) (10.6 Snow Leopard or higher)
- - [TikZ Editor 1.0 for Ubuntu Linux](http://github.com/downloads/mickael-menu/TikZ-Editor/tikz-editor_1.0_all.deb) (11.4 Natty Narwhal or higher)
- - [TikZ Editor 1.0 source archive](http://github.com/downloads/mickael-menu/TikZ-Editor/tikz-editor_1.0.tgz) (requires [Python v2.6+](http://www.python.org/), [PyQt v4.3+](http://www.riverbankcomputing.co.uk/software/pyqt), [QScintilla v2.6+](http://www.riverbankcomputing.com/software/qscintilla) and [ImageMagick](http://www.imagemagick.org/) on Windows/Linux)
+ - [TikZ Editor 1.0 for Mac OS X](http://github.com/downloads/fredokun/TikZ-Editor/TikZ%20Editor-1.0.dmg) (10.6 Snow Leopard or higher)
+ - [TikZ Editor 1.0 for Ubuntu Linux](http://github.com/downloads/fredokun/TikZ-Editor/tikz-editor_1.0_all.deb) (11.4 Natty Narwhal or higher)
+ - [TikZ Editor 1.0 source archive](http://github.com/downloads/fredokun/TikZ-Editor/tikz-editor_1.0.tgz) (requires [Python v2.6+](http://www.python.org/), [PyQt v4.3+](http://www.riverbankcomputing.co.uk/software/pyqt), [QScintilla v2.6+](http://www.riverbankcomputing.com/software/qscintilla) and [ImageMagick](http://www.imagemagick.org/) on Windows/Linux)
 
 
 License
