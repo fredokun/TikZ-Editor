@@ -8,7 +8,7 @@ For deployment and installation instructions, please look at the regular README
 file.
 -->
 
-TikZ Editor is a free code editor for the LaTeX graphic package TikZ.
+TikZ Editor is an editor for the LaTeX graphic package TikZ.
 
 ![Main Window](http://github.com/fredokun/TikZ-Editor/wiki/images/screenshot1.png)
 
@@ -16,8 +16,9 @@ TikZ Editor is a free code editor for the LaTeX graphic package TikZ.
 Features
 --------
 
-- Real-time preview of TikZ sources.
-- Syntax highlighting for LaTeX/TikZ.
+- simplistic and dedicated GUI : Tikz Editor is *only* about TikZ. 
+- Syntax highlighting for TikZ/Latex sources.
+- Real-time preview of figures.
 - Customizable code snippets.
 - Feedback of LaTeX typesetting errors using source annotations and margin markers.
 - Separated edition of TikZ source and LaTeX preamble.
@@ -34,7 +35,7 @@ Downloads
 License
 -------
 
-Copyright © 2012 Mickaël Menu
+Copyright © 2012 Mickaël Menu, Frédéric Peschanski
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
