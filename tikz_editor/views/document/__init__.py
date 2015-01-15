@@ -70,8 +70,8 @@ class DocumentView(QMainWindow):
 	def _restoreWindowState(self):
 		if Preferences.hasWindowGeometry():
 			self.restoreGeometry(Preferences.getWindowGeometry())
-		else:
-			self.setWindowState(Qt.WindowMaximized)
+		# else:
+		# 	self.setWindowState(Qt.WindowMaximized)
 
 	def _initSignalsConnections(self):
 		self.content_view.source_editor_view.contentChangedSignal.connect(self.sourceEditorContentChanged)
