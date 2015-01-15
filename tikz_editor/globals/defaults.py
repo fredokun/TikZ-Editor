@@ -16,7 +16,7 @@
 # Default user preferences
 EDITOR_FONT = u'Monaco, Courrier,13,-1,5,50,0,0,0,1,0'
 FILE_ENCODING = "UTF-8"   # UTF-8, LATIN-1
-INDENTATION_TYPE = "tab"  # tab, spaces
+INDENTATION_TYPE = "spaces"  # tab, spaces
 INDENTATION_SIZE = 4
 AUTO_WRAP = True
 SHOW_ERROR_MARKERS = True

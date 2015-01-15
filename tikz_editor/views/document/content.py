@@ -54,8 +54,9 @@ class ContentView(QMainWindow):
 
 	def _initToolBarActions(self, toolbar):
 		actions_group = QActionGroup(self)
-		show_source_action = ActionFactory.createAction(toolbar, "Source", "Show LaTeX source editor", shortcut=QKeySequence.SelectStartOfLine, slot=self.showSourceView, checkable=True)
-		show_preamble_action = ActionFactory.createAction(toolbar, "Preamble", "Show LaTeX preamble editor", shortcut=QKeySequence.SelectEndOfLine, slot=self.showPreambleView, checkable=True)
+                show_source_action = ActionFactory.createAction(toolbar, "Source", "Show LaTeX source editor", slot=self.showSourceView, checkable=True)
+                show_preamble_action = ActionFactory.createAction(toolbar, "Preamble", "Show LaTeX preamble editor", slot=self.showPreambleView, checkable=True)
+
 		self.actions[actions.SHOW_SOURCE] = show_source_action
 		self.actions[actions.SHOW_PREAMBLE] = show_preamble_action
 
