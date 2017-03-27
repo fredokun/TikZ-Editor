@@ -45,6 +45,7 @@ class PreferencesController(QObject):
 		self.view.editor.autoWrapChangedSignal.connect(Preferences.setAutoWrap)
 		self.view.editor.errorMarkersChangedSignal.connect(Preferences.setShowErrorMarkers)
 		self.view.editor.errorAnnotationsChangedSignal.connect(Preferences.setShowErrorAnnotations)
+		self.view.editor.selectTagsChangedSignal.connect(Preferences.setSelectTags)
 		self.view.editor.autoPreviewChangedSignal.connect(Preferences.setAutoPreview)
 		self.view.editor.previewThresholdChangedSignal.connect(Preferences.setPreviewThreshold)
 
@@ -56,6 +57,7 @@ class PreferencesController(QObject):
 		self.view.editor.autoWrapChangedSignal.connect(EditorView.reloadUserPreferences)
 		self.view.editor.errorMarkersChangedSignal.connect(ErrorsController.reloadUserPreferences)
 		self.view.editor.errorAnnotationsChangedSignal.connect(ErrorsController.reloadUserPreferences)
+		self.view.editor.selectTagsChangedSignal.connect(EditorView.reloadUserPreferences)
 
 		self.view.document.preambleTemplateChangedSignal.connect(Preferences.setPreambleTemplate)
 		self.view.document.latexFileTemplateChangedSignal.connect(Preferences.setLatexFileTemplate)
@@ -77,6 +79,7 @@ class PreferencesController(QObject):
 		self.view.editor.auto_wrap = Preferences.getAutoWrap()
 		self.view.editor.error_markers = Preferences.getShowErrorMarkers()
 		self.view.editor.error_annotations = Preferences.getShowErrorAnnotations()
+		self.view.editor.select_tags = Preferences.getSelectTags()
 		self.view.editor.auto_preview = Preferences.getAutoPreview()
 		self.view.editor.preview_threshold = Preferences.getPreviewThreshold()
 

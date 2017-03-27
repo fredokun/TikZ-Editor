@@ -43,6 +43,7 @@ class PreferencesModel(object):
 	AUTO_WRAP = "AutoWrap"
 	SHOW_ERROR_MARKERS = "ShowErrorMarkers"
 	SHOW_ERROR_ANNOTATIONS = "ShowErrorAnnotations"
+	SELECT_TAGS = "SelectTags"
 	SNIPPETS = "Snippets"
 	PREVIEW_THRESHOLD = "PreviewThreshold"
 	AUTO_PREVIEW = "AutoPreview"
@@ -319,6 +320,24 @@ class PreferencesModel(object):
 	@staticmethod
 	def defaultShowErrorAnnotations():
 		return defaults.SHOW_ERROR_MARKERS
+
+
+	@staticmethod
+	def hasSelectTags():
+		return PreferencesModel.containsKey(PreferencesModel.SELECT_TAGS)
+
+	@staticmethod
+	def getSelectTags():
+		return PreferencesModel.getValueOrDefault(PreferencesModel.SELECT_TAGS, PreferencesModel.defaultSelectTags()).toBool()
+
+	@staticmethod
+	def setSelectTags(value):
+		PreferencesModel.setValue(PreferencesModel.SELECT_TAGS, value)
+
+	@staticmethod
+	def defaultSelectTags():
+		return defaults.SELECT_TAGS
+
 
 	@staticmethod
 	def hasPreviewThreshold():
