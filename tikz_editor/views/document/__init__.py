@@ -13,8 +13,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+
 
 from tikz_editor.models import Preferences
 from tikz_editor.tools import isMacintoshComputer
@@ -101,7 +103,7 @@ class DocumentView(QMainWindow):
 
 	@source.setter
 	def source(self, source):
-		source = unicode(source)
+		source = source
 		if self.source != source:
 			self.content_view.source_editor_view.content = source
 			self.sourceChangedSignal.emit(source)
@@ -116,7 +118,7 @@ class DocumentView(QMainWindow):
 
 	@preamble.setter
 	def preamble(self, preamble):
-		preamble = unicode(preamble)
+		preamble = preamble
 		if self.preamble != preamble:
 			self.content_view.preamble_editor_view.content = preamble
 			self.preambleChangedSignal.emit(preamble)

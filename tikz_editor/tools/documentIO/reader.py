@@ -14,7 +14,7 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from tikz_editor.tools import File
-from tags import *
+from .tags import *
 
 
 class DocumentReaderError(Exception):
@@ -26,6 +26,7 @@ class DocumentReader(object):
 	"""
 	The document reader tool extract the preamble and source of a TikZ file.
 	"""
+
 	def __init__(self, file_path):
 		assert file_path is not None
 		super(DocumentReader, self).__init__()

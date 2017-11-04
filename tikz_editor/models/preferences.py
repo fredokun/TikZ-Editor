@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import tikz_editor.globals.defaults as defaults
 from tikz_editor.tools import isMacintoshComputer, isWindowsComputer, findCommandLocation
@@ -85,7 +85,7 @@ class PreferencesModel(object):
 		settings = QSettings()
 		settings.remove(key)
 
-################################################################################
+	################################################################################
 
 	@staticmethod
 	def hasWindowGeometry():
@@ -93,12 +93,11 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getWindowGeometry():
-		return PreferencesModel.getValue(PreferencesModel.WINDOW_GEOMETRY).toByteArray()
+		return PreferencesModel.getValue(PreferencesModel.WINDOW_GEOMETRY)
 
 	@staticmethod
 	def setWindowGeometry(value):
 		PreferencesModel.setValue(PreferencesModel.WINDOW_GEOMETRY, value)
-
 
 	@staticmethod
 	def hasEditorSplitterState():
@@ -106,12 +105,11 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getEditorSplitterState():
-		return PreferencesModel.getValue(PreferencesModel.EDITOR_SPLITTER_STATE).toByteArray()
+		return PreferencesModel.getValue(PreferencesModel.EDITOR_SPLITTER_STATE)
 
 	@staticmethod
 	def setEditorSplitterState(value):
 		PreferencesModel.setValue(PreferencesModel.EDITOR_SPLITTER_STATE, value)
-
 
 	@staticmethod
 	def hasMainSplitterState():
@@ -119,12 +117,11 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getMainSplitterState():
-		return PreferencesModel.getValue(PreferencesModel.MAIN_SPLITTER_STATE).toByteArray()
+		return PreferencesModel.getValue(PreferencesModel.MAIN_SPLITTER_STATE)
 
 	@staticmethod
 	def setMainSplitterState(value):
 		PreferencesModel.setValue(PreferencesModel.MAIN_SPLITTER_STATE, value)
-
 
 	@staticmethod
 	def hasSelectedFeedbackView():
@@ -132,11 +129,13 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getSelectedFeedbackView():
-		value = PreferencesModel.getValueOrDefault(PreferencesModel.SELECTED_FEEDBACK_VIEW, PreferencesModel.defaultSelectedFeedbackView()).toInt()
-		convert_success = value[1]
-		value = value[0]
-		if not (convert_success and value in (PreferencesModel.FEEDBACK_LOGS_VIEW, PreferencesModel.FEEDBACK_ERRORS_VIEW)):
-			value = PreferencesModel.defaultSelectedFeedbackView()
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.SELECTED_FEEDBACK_VIEW,
+												   PreferencesModel.defaultSelectedFeedbackView())
+		# convert_success = value[1]
+		# value = value[0]
+		# if not (
+		#     convert_success and value in (PreferencesModel.FEEDBACK_LOGS_VIEW, PreferencesModel.FEEDBACK_ERRORS_VIEW)):
+		#     value = PreferencesModel.defaultSelectedFeedbackView()
 		return value
 
 	@staticmethod
@@ -147,7 +146,7 @@ class PreferencesModel(object):
 	def defaultSelectedFeedbackView():
 		return PreferencesModel.FEEDBACK_LOGS_VIEW
 
-################################################################################
+	################################################################################
 
 	@staticmethod
 	def hasEditorFont():
@@ -156,7 +155,8 @@ class PreferencesModel(object):
 	@staticmethod
 	def getEditorFont():
 		font = QFont()
-		font.fromString(PreferencesModel.getValueOrDefault(PreferencesModel.EDITOR_FONT, PreferencesModel.defaultEditorFont()).toString())
+		font.fromString(PreferencesModel.getValueOrDefault(PreferencesModel.EDITOR_FONT,
+														   PreferencesModel.defaultEditorFont()))
 		return font
 
 	@staticmethod
@@ -167,20 +167,19 @@ class PreferencesModel(object):
 	def defaultEditorFont():
 		return defaults.EDITOR_FONT
 
-
 	@staticmethod
 	def hasFileEncoding():
 		return PreferencesModel.containsKey(PreferencesModel.FILE_ENCODING)
 
 	@staticmethod
 	def getFileEncoding():
-		value = PreferencesModel.getValueOrDefault(PreferencesModel.FILE_ENCODING, PreferencesModel.defaultFileEncoding()).toInt()
-		convert_success = value[1]
-		value = value[0]
-		if not (convert_success and value in (PreferencesModel.ENCODING_LATIN1, PreferencesModel.ENCODING_UTF8)):
-			value = PreferencesModel.defaultFileEncoding()
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.FILE_ENCODING,
+												   PreferencesModel.defaultFileEncoding())
+		# convert_success = value[1]
+		# value = value[0]
+		# if not (convert_success and value in (PreferencesModel.ENCODING_LATIN1, PreferencesModel.ENCODING_UTF8)):
+		#     value = PreferencesModel.defaultFileEncoding()
 		return value
-
 
 	@staticmethod
 	def setFileEncoding(value):
@@ -194,23 +193,25 @@ class PreferencesModel(object):
 			default = PreferencesModel.ENCODING_LATIN1
 		return default
 
-
 	@staticmethod
 	def hasLineEndings():
 		return PreferencesModel.containsKey(PreferencesModel.LINE_ENDINGS)
 
 	@staticmethod
 	def getLineEndings():
-		value = PreferencesModel.getValueOrDefault(PreferencesModel.LINE_ENDINGS, PreferencesModel.defaultLineEndings()).toInt()
-		convert_success = value[1]
-		value = value[0]
-		if not (convert_success and value in (PreferencesModel.LINE_ENDINGS_UNIX, PreferencesModel.LINE_ENDINGS_MAC, PreferencesModel.LINE_ENDINGS_WINDOWS)):
-			value = PreferencesModel.defaultLineEndings()
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.LINE_ENDINGS,
+												   PreferencesModel.defaultLineEndings())
+		# convert_success = value[1]
+		# value = value[0]
+		# if not (convert_success and value in (
+		# PreferencesModel.LINE_ENDINGS_UNIX, PreferencesModel.LINE_ENDINGS_MAC, PreferencesModel.LINE_ENDINGS_WINDOWS)):
+		#     value = PreferencesModel.defaultLineEndings()
 		return value
 
 	@staticmethod
 	def setLineEndings(value):
-		assert value in (PreferencesModel.LINE_ENDINGS_UNIX, PreferencesModel.LINE_ENDINGS_MAC, PreferencesModel.LINE_ENDINGS_WINDOWS)
+		assert value in (
+		PreferencesModel.LINE_ENDINGS_UNIX, PreferencesModel.LINE_ENDINGS_MAC, PreferencesModel.LINE_ENDINGS_WINDOWS)
 		PreferencesModel.setValue(PreferencesModel.LINE_ENDINGS, value)
 
 	@staticmethod
@@ -220,18 +221,18 @@ class PreferencesModel(object):
 			default = PreferencesModel.LINE_ENDINGS_WINDOWS
 		return default
 
-
 	@staticmethod
 	def hasIndentationType():
 		return PreferencesModel.containsKey(PreferencesModel.INDENTATION_TYPE)
 
 	@staticmethod
 	def getIndentationType():
-		value = PreferencesModel.getValueOrDefault(PreferencesModel.INDENTATION_TYPE, PreferencesModel.defaultIndentationType()).toInt()
-		convert_success = value[1]
-		value = value[0]
-		if not (convert_success and value in (PreferencesModel.INDENT_TAB, PreferencesModel.INDENT_SPACES)):
-			value = PreferencesModel.defaultIndentationType()
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.INDENTATION_TYPE,
+												   PreferencesModel.defaultIndentationType())
+		# convert_success = value[1]
+		# value = value[0]
+		# if not (convert_success and value in (PreferencesModel.INDENT_TAB, PreferencesModel.INDENT_SPACES)):
+		#     value = PreferencesModel.defaultIndentationType()
 		return value
 
 	@staticmethod
@@ -246,18 +247,18 @@ class PreferencesModel(object):
 			default = PreferencesModel.INDENT_SPACES
 		return default
 
-
 	@staticmethod
 	def hasIndentationSize():
 		return PreferencesModel.containsKey(PreferencesModel.INDENTATION_SIZE)
 
 	@staticmethod
 	def getIndentationSize():
-		value = PreferencesModel.getValueOrDefault(PreferencesModel.INDENTATION_SIZE, PreferencesModel.defaultIndentationSize()).toInt()
-		convert_success = value[1]
-		value = value[0]
-		if not (convert_success and value > 0):
-			value = PreferencesModel.defaultIndentationSize()
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.INDENTATION_SIZE,
+												   PreferencesModel.defaultIndentationSize())
+		# convert_success = value[1]
+		# value = value[0]
+		# if not (convert_success and value > 0):
+		#     value = PreferencesModel.defaultIndentationSize()
 		return value
 
 	@staticmethod
@@ -269,14 +270,14 @@ class PreferencesModel(object):
 	def defaultIndentationSize():
 		return defaults.INDENTATION_SIZE
 
-
 	@staticmethod
 	def hasAutoWrap():
 		return PreferencesModel.containsKey(PreferencesModel.AUTO_WRAP)
 
 	@staticmethod
 	def getAutoWrap():
-		return PreferencesModel.getValueOrDefault(PreferencesModel.AUTO_WRAP, PreferencesModel.defaultAutoWrap()).toBool()
+		return PreferencesModel.getValueOrDefault(PreferencesModel.AUTO_WRAP,
+												  PreferencesModel.defaultAutoWrap())
 
 	@staticmethod
 	def setAutoWrap(value):
@@ -286,14 +287,14 @@ class PreferencesModel(object):
 	def defaultAutoWrap():
 		return defaults.AUTO_WRAP
 
-
 	@staticmethod
 	def hasShowErrorMarkers():
 		return PreferencesModel.containsKey(PreferencesModel.SHOW_ERROR_MARKERS)
 
 	@staticmethod
 	def getShowErrorMarkers():
-		return PreferencesModel.getValueOrDefault(PreferencesModel.SHOW_ERROR_MARKERS, PreferencesModel.defaultShowErrorMarkers()).toBool()
+		return PreferencesModel.getValueOrDefault(PreferencesModel.SHOW_ERROR_MARKERS,
+												  PreferencesModel.defaultShowErrorMarkers())
 
 	@staticmethod
 	def setShowErrorMarkers(value):
@@ -303,14 +304,14 @@ class PreferencesModel(object):
 	def defaultShowErrorMarkers():
 		return defaults.SHOW_ERROR_MARKERS
 
-
 	@staticmethod
 	def hasShowErrorAnnotations():
 		return PreferencesModel.containsKey(PreferencesModel.SHOW_ERROR_ANNOTATIONS)
 
 	@staticmethod
 	def getShowErrorAnnotations():
-		return PreferencesModel.getValueOrDefault(PreferencesModel.SHOW_ERROR_ANNOTATIONS, PreferencesModel.defaultShowErrorAnnotations()).toBool()
+		return PreferencesModel.getValueOrDefault(PreferencesModel.SHOW_ERROR_ANNOTATIONS,
+												  PreferencesModel.defaultShowErrorAnnotations())
 
 	@staticmethod
 	def setShowErrorAnnotations(value):
@@ -326,11 +327,12 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getPreviewThreshold():
-		value = PreferencesModel.getValueOrDefault(PreferencesModel.PREVIEW_THRESHOLD, PreferencesModel.defaultPreviewThreshold()).toInt()
-		convert_success = value[1]
-		value = value[0]
-		if not (convert_success and value > 0):
-			value = PreferencesModel.defaultThreshold()
+		value = PreferencesModel.getValueOrDefault(PreferencesModel.PREVIEW_THRESHOLD,
+												   PreferencesModel.defaultPreviewThreshold())
+		# convert_success = value[1]
+		# value = value[0]
+		# if not (convert_success and value > 0):
+		#     value = PreferencesModel.defaultThreshold()
 		return value
 
 	@staticmethod
@@ -342,14 +344,14 @@ class PreferencesModel(object):
 	def defaultPreviewThreshold():
 		return defaults.PREVIEW_THRESHOLD
 
-
 	@staticmethod
 	def hasAutoPreview():
 		return PreferencesModel.containsKey(PreferencesModel.AUTO_PREVIEW)
 
 	@staticmethod
 	def getAutoPreview():
-		return PreferencesModel.getValueOrDefault(PreferencesModel.AUTO_PREVIEW, PreferencesModel.defaultAutoPreview()).toBool()
+		return PreferencesModel.getValueOrDefault(PreferencesModel.AUTO_PREVIEW,
+												  PreferencesModel.defaultAutoPreview())
 
 	@staticmethod
 	def setAutoPreview(value):
@@ -359,7 +361,7 @@ class PreferencesModel(object):
 	def defaultAutoPreview():
 		return defaults.AUTO_PREVIEW
 
-################################################################################
+	################################################################################
 
 	@staticmethod
 	def hasLatexFileTemplate():
@@ -367,7 +369,8 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getLatexFileTemplate():
-		return unicode(PreferencesModel.getValueOrDefault(PreferencesModel.LATEX_FILE_TEMPLATE, PreferencesModel.defaultLatexFileTemplate()).toString())
+		return str(PreferencesModel.getValueOrDefault(PreferencesModel.LATEX_FILE_TEMPLATE,
+													  PreferencesModel.defaultLatexFileTemplate()))
 
 	@staticmethod
 	def setLatexFileTemplate(value):
@@ -377,14 +380,14 @@ class PreferencesModel(object):
 	def defaultLatexFileTemplate():
 		return defaults.DEFAULT_TEMPLATE
 
-
 	@staticmethod
 	def hasPreambleTemplate():
 		return PreferencesModel.containsKey(PreferencesModel.PREAMBLE_TEMPLATE)
 
 	@staticmethod
 	def getPreambleTemplate():
-		return unicode(PreferencesModel.getValueOrDefault(PreferencesModel.PREAMBLE_TEMPLATE, PreferencesModel.defaultPreambleTemplate()).toString())
+		return str(PreferencesModel.getValueOrDefault(PreferencesModel.PREAMBLE_TEMPLATE,
+													  PreferencesModel.defaultPreambleTemplate()))
 
 	@staticmethod
 	def setPreambleTemplate(value):
@@ -394,8 +397,7 @@ class PreferencesModel(object):
 	def defaultPreambleTemplate():
 		return defaults.DEFAULT_PREAMBLE_TEMPLATE
 
-
-################################################################################
+	################################################################################
 
 	@staticmethod
 	def hasPreviewTemplate():
@@ -403,7 +405,8 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getPreviewTemplate():
-		return unicode(PreferencesModel.getValueOrDefault(PreferencesModel.PREVIEW_TEMPLATE, PreferencesModel.defaultPreviewTemplate()).toString())
+		return PreferencesModel.getValueOrDefault(PreferencesModel.PREVIEW_TEMPLATE,
+													  PreferencesModel.defaultPreviewTemplate())
 
 	@staticmethod
 	def setPreviewTemplate(value):
@@ -413,8 +416,6 @@ class PreferencesModel(object):
 	def defaultPreviewTemplate():
 		return defaults.DEFAULT_TEMPLATE
 
-
-
 	DEFAULT_LATEX_TO_PDF_COMMAND = None
 
 	@staticmethod
@@ -423,7 +424,8 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getLatexToPDFCommand():
-		return unicode(PreferencesModel.getValueOrDefault(PreferencesModel.LATEX_TO_PDF_COMMAND, PreferencesModel.defaultLatexToPDFCommand()).toString())
+		return PreferencesModel.getValueOrDefault(PreferencesModel.LATEX_TO_PDF_COMMAND,
+													  PreferencesModel.defaultLatexToPDFCommand())
 
 	@staticmethod
 	def setLatexToPDFCommand(value):
@@ -433,9 +435,8 @@ class PreferencesModel(object):
 	def defaultLatexToPDFCommand():
 		if PreferencesModel.DEFAULT_LATEX_TO_PDF_COMMAND is None:
 			pdflatex_path = findCommandLocation(defaults.DEFAULT_LATEX_TO_PDF_COMMAND)
-		 	PreferencesModel.DEFAULT_LATEX_TO_PDF_COMMAND = defaults.DEFAULT_LATEX_TO_PDF_ARGS % pdflatex_path
+			PreferencesModel.DEFAULT_LATEX_TO_PDF_COMMAND = defaults.DEFAULT_LATEX_TO_PDF_ARGS % pdflatex_path
 		return PreferencesModel.DEFAULT_LATEX_TO_PDF_COMMAND
-
 
 	DEFAULT_PDF_TO_IMAGE_COMMAND = None
 
@@ -445,7 +446,8 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getPDFToImageCommand():
-		return unicode(PreferencesModel.getValueOrDefault(PreferencesModel.PDF_TO_IMAGE_COMMAND, PreferencesModel.defaultPDFToImageCommand()).toString())
+		return PreferencesModel.getValueOrDefault(PreferencesModel.PDF_TO_IMAGE_COMMAND,
+													  PreferencesModel.defaultPDFToImageCommand())
 
 	@staticmethod
 	def setPDFToImageCommand(value):
@@ -462,7 +464,7 @@ class PreferencesModel(object):
 				PreferencesModel.DEFAULT_PDF_TO_IMAGE_COMMAND = defaults.DEFAULT_PDF_TO_IMAGE_ARGS % convert_path
 		return PreferencesModel.DEFAULT_PDF_TO_IMAGE_COMMAND
 
-################################################################################
+	################################################################################
 
 	@staticmethod
 	def hasSnippets():
@@ -470,11 +472,12 @@ class PreferencesModel(object):
 
 	@staticmethod
 	def getSnippets():
-		snippets = PreferencesModel.getValueOrDefault(PreferencesModel.SNIPPETS, PreferencesModel.defaultSnippets()).toPyObject()
+		snippets = PreferencesModel.getValueOrDefault(PreferencesModel.SNIPPETS,
+													  PreferencesModel.defaultSnippets())
 		# convert QString to python strings
 		str_snippets = {}
 		for name, code in snippets.items():
-			str_snippets[unicode(name)] = unicode(code)
+			str_snippets[name] = code
 		return str_snippets
 
 	@staticmethod

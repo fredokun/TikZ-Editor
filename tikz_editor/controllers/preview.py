@@ -15,8 +15,8 @@
 
 from datetime import datetime
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 from tikz_editor.models import Preferences
 from tikz_editor.tools.latex2image import Converter, LatexToImageConversion
@@ -55,7 +55,6 @@ class PreviewController(QObject):
 		if not self.request_preview_update:
 			self.requestPreviewUpdate()
 
-	@pyqtSlot()
 	def conversionAborted(self):
 		self.preview_view.showErrorBackground()
 

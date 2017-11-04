@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 from tikz_editor.models import Preferences
 from tikz_editor.tools import documentIO
@@ -120,11 +120,11 @@ class ErrorsController(QObject):
 		for error in errors:
 			line = error[0]
 			message = error[1]
-			if line >= preamble_begin and line <= preamble_end:
+			if line is not None and line >= preamble_begin and line <= preamble_end:
 				matched_errors.append(PreambleError(line - preamble_begin + 1, message))
-			elif line >= source_begin and line <= source_end:
+			elif line is not None and line >= source_begin and line <= source_end:
 				matched_errors.append(SourceError(line - source_begin + 1, message))
-			elif line > source_end:
+			elif line is not None and line > source_end:
 				matched_errors.append(ConversionError(source_end - source_begin + 1, message))
 			else:
 				matched_errors.append(ConversionError(None, message))

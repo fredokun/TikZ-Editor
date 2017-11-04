@@ -19,4 +19,4 @@ import tikz_editor.globals
 if __name__ == '__main__':
 	# prints the given argument if available in TikZ Editor's global vars.
 	if len(sys.argv) == 2:
-		print getattr(tikz_editor.globals, sys.argv[1], u'').encode('utf-8')
+		print(getattr(tikz_editor.globals, sys.argv[1], u'').encode('utf-8'))

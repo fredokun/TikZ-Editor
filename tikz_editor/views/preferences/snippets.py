@@ -13,8 +13,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+
 
 from tikz_editor.tools import isMacintoshComputer
 from tikz_editor.tools.qt import Dialogs
@@ -47,7 +49,7 @@ class EditSnippetView(QDialog):
 
 	@property
 	def name(self):
-		return unicode(self.name_edit.text())
+		return str(self.name_edit.text(), 'utf-8')
 
 	@name.setter
 	def name(self, name):
@@ -55,7 +57,7 @@ class EditSnippetView(QDialog):
 
 	@property
 	def code(self):
-		return unicode(self.code_edit.content)
+		return str(self.code_edit.content, 'utf-8')
 
 	@code.setter
 	def code(self, code):
@@ -213,7 +215,7 @@ class SnippetsPreferencesView(QWidget):
 		selected_snippets = []
 		items = self.snippets_list.selectedItems()
 		for item in items:
-			selected_snippets.append(unicode(item.data(0, Qt.DisplayRole).toString()))
+			selected_snippets.append(str(item.data(0, Qt.DisplayRole).toString(),'utf-8'))
 		return selected_snippets
 
 	@property
@@ -237,7 +239,7 @@ class SnippetsPreferencesView(QWidget):
 			self.snippets_list.insertTopLevelItems(0, items)
 
 	def _snippetDoubleClicked(self, item, column):
-		self.editSnippet(unicode(item.data(0, Qt.DisplayRole).toString()))
+		self.editSnippet(str(item.data(0, Qt.DisplayRole).toString(),'utf-8'))
 
 	def _restoreAllSnippets(self):
 		self.snippets = Preferences.defaultSnippets()

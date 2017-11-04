@@ -17,11 +17,11 @@ import os
 from string import Template
 from uuid import uuid4
 
-from PyQt4.QtCore import *
+from PyQt5.QtCore import *
 
 from tikz_editor.models import Preferences
 from tikz_editor.tools import File
-from logs_parser import LogsParser
+from .logs_parser import LogsParser
 
 
 class LatexToImageConversion(object):
@@ -31,6 +31,7 @@ class LatexToImageConversion(object):
 		logs is the pdflatex's logs with errors highlighted (HTML)
 		errors is a list of tuples (line_number, error_message)
 	"""
+
 	def __init__(self, source, image_path, logs, errors):
 		super(LatexToImageConversion, self).__init__()
 		self.source = source
@@ -57,7 +58,7 @@ class Converter(QObject):
 		self.logs_parser = LogsParser()
 		self._stopping_conversion = False
 
-		self.unique_random_file_name = unicode(uuid4())
+		self.unique_random_file_name = str(uuid4())
 		self.base_file_path = os.path.join(self.output_directory, self.unique_random_file_name)
 		self.source_file_path = "%s.tex" % self.base_file_path
 		self.pdf_file_path = "%s.pdf" % self.base_file_path
@@ -96,8 +97,8 @@ class Converter(QObject):
 			self.latex_source = source
 			self._writeSourceCodeToFile()
 			self._startConversion()
-		except Exception, e:
-			self.logs_parser.addErrorMessage(unicode(e))
+		except Exception as e:
+			self.logs_parser.addErrorMessage(str(e))
 			self._parseErrorsFromLogs()
 			self._emitConversionSignalWithImagePath(None)
 			self.conversionAbortedSignal.emit()
@@ -110,12 +111,14 @@ class Converter(QObject):
 
 	def _convertSourceFileToPDF(self):
 		latex2pdf_command = Template(Preferences.getLatexToPDFCommand())
-		latex2pdf_command = latex2pdf_command.safe_substitute(OUTPUT_DIR=self.output_directory, FILE_NAME=self.unique_random_file_name, FILE_PATH=self.source_file_path)
+		latex2pdf_command = latex2pdf_command.safe_substitute(OUTPUT_DIR=self.output_directory,
+															  FILE_NAME=self.unique_random_file_name,
+															  FILE_PATH=self.source_file_path)
 		self._latex_process.start(latex2pdf_command)
 
 	def _latexTypesettingFinished(self, exit_code, exit_status):
 		if not self.isStoppingConversion():
-			self.logs_parser.logs = unicode(self._latex_process.readAllStandardOutput(), encoding="utf-8")
+			self.logs_parser.logs = str(self._latex_process.readAllStandardOutput(), 'utf-8')
 			if self.logs_parser.isTypesettingAborted():
 				self._parseErrorsFromLogs()
 				self._emitConversionSignalWithImagePath(None)
@@ -124,13 +127,15 @@ class Converter(QObject):
 				self._convertPDFToImage()
 
 	def _latexTypesettingError(self, error):
-		self.logs_parser.addErrorMessage("Preview Error: Can't convert the source file to PDF. Please check the LaTeX command in preview's preferences.")
+		self.logs_parser.addErrorMessage(
+			"Preview Error: Can't convert the source file to PDF. Please check the LaTeX command in preview's preferences.")
 		self._emitConversionSignalWithImagePath(None)
 		self.conversionAbortedSignal.emit()
 
 	def _convertPDFToImage(self):
 		pdf2image_command = Template(Preferences.getPDFToImageCommand())
-		pdf2image_command = pdf2image_command.safe_substitute(PDF_PATH=self.pdf_file_path, IMAGE_PATH=self.png_file_path)
+		pdf2image_command = pdf2image_command.safe_substitute(PDF_PATH=self.pdf_file_path,
+															  IMAGE_PATH=self.png_file_path)
 		self._convert_process.start(pdf2image_command)
 
 	def _pdfToImageConversionFinished(self, exit_code, exit_status):
@@ -142,7 +147,8 @@ class Converter(QObject):
 			self._emitConversionSignalWithImagePath(self.png_file_path)
 
 	def _pdfToImageConversionError(self, error):
-		self.logs_parser.addErrorMessage("Preview Error: Can't convert the PDF preview to image. Please check the PDF to image command in preview's preferences.")
+		self.logs_parser.addErrorMessage(
+			"Preview Error: Can't convert the PDF preview to image. Please check the PDF to image command in preview's preferences.")
 		self._emitConversionSignalWithImagePath(None)
 		self.conversionAbortedSignal.emit()
 
@@ -150,4 +156,6 @@ class Converter(QObject):
 		self.logs_parser.parseErrorsFromLogs()
 
 	def _emitConversionSignalWithImagePath(self, image_path):
-		self.convertedSignal.emit(LatexToImageConversion(self.latex_source, image_path, self.logs_parser.getStyledLogs(), self.logs_parser.errors))
+		self.convertedSignal.emit(
+			LatexToImageConversion(self.latex_source, image_path, self.logs_parser.getStyledLogs(),
+								   self.logs_parser.errors))

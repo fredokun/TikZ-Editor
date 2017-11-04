@@ -13,23 +13,24 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
-from about import AboutView
-from document import DocumentView
-from document.content import ContentView
-from document.preview import PreviewView
-from document.feedback import FeedbackView
-from document.feedback.logs import LogsView
-from document.feedback.errors import ErrorsView
-from document.properties import PropertiesView
-from preferences import PreferencesView
-from preferences.document import DocumentPreferencesView
-from preferences.editor import EditorPreferencesView
-from preferences.preview import PreviewPreferencesView
-from preferences.snippets import SnippetsPreferencesView
-from editor import EditorView
+from .about import AboutView
+from .document import DocumentView
+from .document.content import ContentView
+from .document.preview import PreviewView
+from .document.feedback import FeedbackView
+from .document.feedback.logs import LogsView
+from .document.feedback.errors import ErrorsView
+from .document.properties import PropertiesView
+from .preferences import PreferencesView
+from .preferences.document import DocumentPreferencesView
+from .preferences.editor import EditorPreferencesView
+from .preferences.preview import PreviewPreferencesView
+from .preferences.snippets import SnippetsPreferencesView
+from .editor import EditorView
 
 
 class ViewFactory(object):

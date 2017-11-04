@@ -13,13 +13,13 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from app import AppController
-from about import AboutController
-from document import DocumentController
-from documents import DocumentsController
-from preview import PreviewController
-from errors import ErrorsController
-from preferences import PreferencesController
+from .app import AppController
+from .about import AboutController
+from .document import DocumentController
+from .documents import DocumentsController
+from .preview import PreviewController
+from .errors import ErrorsController
+from .preferences import PreferencesController
 
 from tikz_editor.models import DocumentFactory
 from tikz_editor.views import ViewFactory

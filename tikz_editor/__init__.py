@@ -15,9 +15,7 @@
 
 import os
 import sys
-import atexit # necessary for pyinstaller deployment
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtWidgets import QApplication
 
 from tikz_editor.controllers import ControllerFactory
 from tikz_editor.tools import isMacintoshComputer

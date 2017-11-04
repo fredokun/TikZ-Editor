@@ -13,8 +13,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+
 
 from tikz_editor.tools.qt import ActionFactory, ToolBarFactory
 
@@ -87,7 +89,7 @@ class PreferencesView(QMainWindow):
 		The resize animation is used to resize the preferences window to match currently
 		displayed view.
 		"""
-		self.resize_animation = QPropertyAnimation(self, "geometry")
+		self.resize_animation = QPropertyAnimation(self, b'geometry')
 		self.resize_animation.setDuration(150)
 		self.resize_animation.finished.connect(self._resizeAnimationFinished)
 

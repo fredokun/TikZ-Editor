@@ -8,6 +8,6 @@ Homepage: http://github.com/mickael-menu/TikZ-Editor
 
 Package: #PACKAGE#
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python-qt4, python-qscintilla2, imagemagick
+Depends: ${python:Depends}, ${misc:Depends}, python-qt5, python-qscintilla2, imagemagick
 Description: TikZ (LaTeX) code editor
  TikZ code editor providing real-time previewing of TikZ source.

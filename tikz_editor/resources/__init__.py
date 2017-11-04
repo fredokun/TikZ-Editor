@@ -2,14 +2,13 @@
 
 # Resource object code
 #
-# Created: Fri May 18 17:30:47 2012
-#      by: The Resource Compiler for PyQt (Qt v4.7.4)
+# Created by: The Resource Compiler for PyQt5 (Qt v5.9.2)
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore
+from PyQt5 import QtCore
 
-qt_resource_data = "\
+qt_resource_data = b"\
 \x00\x00\x02\xe6\
 \x3c\
 \x64\x69\x76\x20\x61\x6c\x69\x67\x6e\x3d\x22\x6a\x75\x73\x74\x69\
@@ -1004,7 +1003,7 @@ qt_resource_data = "\
 \x44\xae\x42\x60\x82\
 "
 
-qt_resource_name = "\
+qt_resource_name = b"\
 \x00\x0a\
 \x0c\x78\x09\xfc\
 \x00\x61\
@@ -1015,16 +1014,33 @@ qt_resource_name = "\
 \x00\x63\x00\x6f\x00\x6e\x00\x5f\x00\x61\x00\x62\x00\x6f\x00\x75\x00\x74\x00\x2e\x00\x70\x00\x6e\x00\x67\
 "
 
-qt_resource_struct = "\
+qt_resource_struct_v1 = b"\
 \x00\x00\x00\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00\x01\
 \x00\x00\x00\x1a\x00\x00\x00\x00\x00\x01\x00\x00\x02\xea\
 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\
 "
 
+qt_resource_struct_v2 = b"\
+\x00\x00\x00\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00\x01\
+\x00\x00\x00\x00\x00\x00\x00\x00\
+\x00\x00\x00\x1a\x00\x00\x00\x00\x00\x01\x00\x00\x02\xea\
+\x00\x00\x01\x5f\x7d\x31\xb3\x10\
+\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\
+\x00\x00\x01\x5f\x7d\x31\xb3\x10\
+"
+
+qt_version = QtCore.qVersion().split('.')
+if qt_version < ['5', '8', '0']:
+    rcc_version = 1
+    qt_resource_struct = qt_resource_struct_v1
+else:
+    rcc_version = 2
+    qt_resource_struct = qt_resource_struct_v2
+
 def qInitResources():
-    QtCore.qRegisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)
+    QtCore.qRegisterResourceData(rcc_version, qt_resource_struct, qt_resource_name, qt_resource_data)
 
 def qCleanupResources():
-    QtCore.qUnregisterResourceData(0x01, qt_resource_struct, qt_resource_name, qt_resource_data)
+    QtCore.qUnregisterResourceData(rcc_version, qt_resource_struct, qt_resource_name, qt_resource_data)
 
 qInitResources()

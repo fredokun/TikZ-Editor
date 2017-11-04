@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.Qsci import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.Qsci import *
 
 import tikz_editor.globals.editor as editor
 from tikz_editor.models import Preferences
@@ -25,6 +25,7 @@ class LexerTikZ(QsciLexerTeX):
 	"""
 	Scintilla lexer used for syntax-highlighting TikZ sources.
 	"""
+
 	def __init__(self, parent=None):
 		super(LexerTikZ, self).__init__(parent)
 
@@ -42,17 +43,17 @@ class LexerTikZ(QsciLexerTeX):
 		Returns the color for each style
 		"""
 		color = super(LexerTikZ, self).defaultColor(style)
-		if style == LexerTikZ.Default:    # LaTeX comments (without leading %)
+		if style == LexerTikZ.Default:  # LaTeX comments (without leading %)
 			color = QColor(editor.EDITOR_COMMENTS_COLOR)
 		elif style == LexerTikZ.Special:  # Symbols ()[]<>=
 			color = QColor(editor.EDITOR_SYMBOLS1_COLOR)
-		elif style == LexerTikZ.Group:    # Symbols {}$
+		elif style == LexerTikZ.Group:  # Symbols {}$
 			color = QColor(editor.EDITOR_SYMBOLS2_COLOR)
-		elif style == LexerTikZ.Symbol:   # Leading % of LaTeX comments
+		elif style == LexerTikZ.Symbol:  # Leading % of LaTeX comments
 			color = QColor(editor.EDITOR_COMMENTS_COLOR)
 		elif style == LexerTikZ.Command:  # LaTeX commands prefixed by \
 			color = QColor(editor.EDITOR_KEYWORDS_COLOR)
-		elif style == LexerTikZ.Text:     # Rest of the source
+		elif style == LexerTikZ.Text:  # Rest of the source
 			color = QColor(editor.EDITOR_TEXT_COLOR)
 		return color
 
@@ -61,22 +62,22 @@ class LexerTikZ(QsciLexerTeX):
 		Returns the font for each style
 		"""
 		font = super(LexerTikZ, self).defaultFont(style)
-		if style == LexerTikZ.Default:    # LaTeX comments (without leading %)
+		if style == LexerTikZ.Default:  # LaTeX comments (without leading %)
 			font.setBold(editor.EDITOR_COMMENTS_BOLD)
 			font.setItalic(editor.EDITOR_COMMENTS_ITALIC)
 		elif style == LexerTikZ.Special:  # Symbols ()[]<>
 			font.setBold(editor.EDITOR_SYMBOLS1_BOLD)
 			font.setItalic(editor.EDITOR_SYMBOLS1_ITALIC)
-		elif style == LexerTikZ.Group:    # Symbols {}
+		elif style == LexerTikZ.Group:  # Symbols {}
 			font.setBold(editor.EDITOR_SYMBOLS2_BOLD)
 			font.setItalic(editor.EDITOR_SYMBOLS2_ITALIC)
-		elif style == LexerTikZ.Symbol:   # Leading % of LaTeX comments
+		elif style == LexerTikZ.Symbol:  # Leading % of LaTeX comments
 			font.setBold(editor.EDITOR_COMMENTS_BOLD)
 			font.setItalic(editor.EDITOR_COMMENTS_ITALIC)
 		elif style == LexerTikZ.Command:  # LaTeX commands prefixed by \
 			font.setBold(editor.EDITOR_KEYWORDS_BOLD)
 			font.setItalic(editor.EDITOR_KEYWORDS_ITALIC)
-		elif style == LexerTikZ.Text:     # Rest of the source
+		elif style == LexerTikZ.Text:  # Rest of the source
 			font.setBold(editor.EDITOR_TEXT_BOLD)
 			font.setItalic(editor.EDITOR_TEXT_ITALIC)
 		return font
@@ -129,10 +130,10 @@ class EditorView(QsciScintilla):
 		# annotations
 		self.setAnnotationDisplay(self.AnnotationBoxed)
 
-		# customize annotations style (not used because of a bug, only the first instance
-		# of EditorView is styled)
-		#self.SendScintilla(QsciScintilla.SCI_SETSTYLEBITS, 7)
-		#QsciStyle(6, "annotations", QColor(31, 116, 224), QColor(31, 116, 224), font)
+	# customize annotations style (not used because of a bug, only the first instance
+	# of EditorView is styled)
+	# self.SendScintilla(QsciScintilla.SCI_SETSTYLEBITS, 7)
+	# QsciStyle(6, "annotations", QColor(31, 116, 224), QColor(31, 116, 224), font)
 
 	def _initConnections(self):
 		self.textChanged.connect(self.contentChangedSignal)
@@ -195,7 +196,7 @@ class EditorView(QsciScintilla):
 
 	@property
 	def content(self):
-		return unicode(self.text())
+		return self.text()
 
 	@content.setter
 	def content(self, content):
@@ -232,7 +233,7 @@ class EditorView(QsciScintilla):
 		size = 0
 		if self._isValidLineNumber(line):
 			line_index = self._convertLineNumberToLineIndex(line)
-			size = len(unicode(self.text(line_index)).rstrip())
+			size = len(self.text(line_index).rstrip())
 		return size
 
 	def selectLine(self, line):

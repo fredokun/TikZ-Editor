@@ -13,8 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
 
 from tikz_editor.tools import File
 
@@ -65,24 +64,20 @@ class DocumentController(QObject):
 		self.view.show()
 		self.view.raise_()
 
-	@pyqtSlot()
 	def preview(self):
 		self.preview_controller.updatePreview()
 
-	@pyqtSlot()
 	def close(self):
 		self.preview_controller.abortPreview()
 		self.view.closeEvent()
 		self.documentClosedSignal.emit(self)
 
-	@pyqtSlot()
 	def save(self):
 		if self.model.isUntitled():
 			self.saveAs()
 		else:
 			self.model.save()
 
-	@pyqtSlot()
 	def saveAs(self):
 		file_path = File.showSaveFileDialog(self.view, self._getDocumentFileName())
 		if file_path:
