@@ -13,8 +13,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-
+from PyQt5.QtCore import *
 import tikz_editor.resources
 from tikz_editor.tools import File
 
@@ -23,6 +22,7 @@ class AboutController(QObject):
 	"""
 	Controller for the "About" dialog.
 	"""
+
 	def __init__(self):
 		super(AboutController, self).__init__()
 		self.view = None
@@ -32,7 +32,6 @@ class AboutController(QObject):
 		self.view.setImage(":/icon_about.png")
 		self.view.setInfoHTML(File.readContentFromFilePath(":/about.html"))
 
-	@pyqtSlot()
 	def showAbout(self):
 		self.view.show()
 		self.view.raise_()

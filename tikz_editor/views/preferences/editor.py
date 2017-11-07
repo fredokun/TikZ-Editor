@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 from tikz_editor.tools.qt import Dialogs
 from tikz_editor.models import Preferences
@@ -104,7 +104,8 @@ class EditorPreferencesView(QWidget):
 		self.indent_size_choice.setMinimum(1)
 
 		self.preview_threshold_choice.setRange(100, 100000)
-		# self.preview_threshold_choice.setSuffix(" ms") # I think it's ugly
+
+	# self.preview_threshold_choice.setSuffix(" ms") # I think it's ugly
 
 	def _initLayout(self):
 		layout = QFormLayout()
@@ -140,13 +141,13 @@ class EditorPreferencesView(QWidget):
 			self.editorFontChangedSignal.emit(selected_font)
 
 	def _encodingChanged(self, index):
-		self.fileEncodingChangedSignal.emit(self.encoding_choice.itemData(index).toInt()[0])
+		self.fileEncodingChangedSignal.emit(self.encoding_choice.itemData(index))
 
 	def _lineEndingsChanged(self, index):
-		self.lineEndingsChangedSignal.emit(self.line_endings_choice.itemData(index).toInt()[0])
+		self.lineEndingsChangedSignal.emit(self.line_endings_choice.itemData(index))
 
 	def _indentationTypeChanged(self, index):
-		self.indentationTypeChangedSignal.emit(self.indent_type_choice.itemData(index).toInt()[0])
+		self.indentationTypeChangedSignal.emit(self.indent_type_choice.itemData(index))
 
 	def _indentationSizeChanged(self, value):
 		self.indentationSizeChangedSignal.emit(value)

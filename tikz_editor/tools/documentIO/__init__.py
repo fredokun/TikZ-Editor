@@ -15,9 +15,9 @@
 
 # The document IO tools are used for saving TikZ document onto the filesystem.
 
-from reader import DocumentReader
-from template import FileTemplate
-from tags import *
+from .reader import DocumentReader
+from .template import FileTemplate
+from .tags import *
 from tikz_editor.tools import File
 
 
@@ -74,5 +74,6 @@ def getSectionPositionFromSourceCodeAndTags(latex_source, begin_tag, end_tag):
 
 	assert begin_line > 0 and end_line > 0 and begin_line <= end_line
 	return (begin_line, end_line)
+
 
 __all__ = ["readPreambleAndSourceFromFilePath", "writeDocumentToFilePath", "buildFileContentFromDocument"]

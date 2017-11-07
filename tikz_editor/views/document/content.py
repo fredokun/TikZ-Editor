@@ -13,8 +13,9 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 import tikz_editor.globals.actions as actions
 from tikz_editor.tools.qt import ActionFactory, ToolBarFactory
@@ -24,6 +25,7 @@ class ContentView(QMainWindow):
 	"""
 	The content view displays the source and preamble editors.
 	"""
+
 	def __init__(self, parent=None):
 		super(QMainWindow, self).__init__(parent)
 		self.app_controller = None
@@ -54,8 +56,10 @@ class ContentView(QMainWindow):
 
 	def _initToolBarActions(self, toolbar):
 		actions_group = QActionGroup(self)
-                show_source_action = ActionFactory.createAction(toolbar, "Source", "Show LaTeX source editor", slot=self.showSourceView, checkable=True)
-                show_preamble_action = ActionFactory.createAction(toolbar, "Preamble", "Show LaTeX preamble editor", slot=self.showPreambleView, checkable=True)
+		show_source_action = ActionFactory.createAction(toolbar, "Source", "Show LaTeX source editor",
+														slot=self.showSourceView, checkable=True)
+		show_preamble_action = ActionFactory.createAction(toolbar, "Preamble", "Show LaTeX preamble editor",
+														  slot=self.showPreambleView, checkable=True)
 
 		self.actions[actions.SHOW_SOURCE] = show_source_action
 		self.actions[actions.SHOW_PREAMBLE] = show_preamble_action

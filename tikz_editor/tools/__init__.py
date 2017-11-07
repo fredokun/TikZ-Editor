@@ -15,10 +15,11 @@
 
 import sys
 from subprocess import Popen, PIPE
-from file import File, FileError
-from temp_dir import TemporaryDirectory, TemporaryDirectoryError
+from .file import File, FileError
+from .temp_dir import TemporaryDirectory, TemporaryDirectoryError
 
-from PyQt4.QtGui import QApplication
+from PyQt5.QtWidgets import *
+
 
 __all__ = ["File", "FileError", "TemporaryDirectory", "TemporaryDirectoryError"]
 

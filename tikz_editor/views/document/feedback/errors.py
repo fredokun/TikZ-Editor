@@ -13,13 +13,13 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 
 class ErrorListItem(QListWidgetItem):
 	def __init__(self, error, parent=None):
-		super(ErrorListItem, self).__init__(unicode(error), parent)
+		super(ErrorListItem, self).__init__(str(error), parent)
 		self.error = error
 
 

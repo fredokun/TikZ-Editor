@@ -15,7 +15,7 @@
 
 from string import Template
 
-from tags import *
+from .tags import *
 
 
 class FileTemplate(object):

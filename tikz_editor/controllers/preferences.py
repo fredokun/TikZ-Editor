@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
+from PyQt5.QtCore import *
 
 from tikz_editor.models import Preferences
-from errors import ErrorsController
+from .errors import ErrorsController
 from tikz_editor.views.editor import EditorView
 
 
@@ -89,7 +89,6 @@ class PreferencesController(QObject):
 
 		self.view.snippets.snippets = Preferences.getSnippets()
 
-	@pyqtSlot()
 	def showPreferences(self):
 		self.view.show()
 		self.view.raise_()

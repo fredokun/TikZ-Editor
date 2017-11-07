@@ -17,8 +17,8 @@ import os
 
 import tikz_editor.models.preferences
 
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
 
 class FileError(Exception):
@@ -35,31 +35,31 @@ class File(object):
 	@staticmethod
 	def getFileNameFromFilePath(file_path):
 		file_info = QFileInfo(file_path)
-		return unicode(file_info.fileName())
+		return file_info.fileName()
 
 	@staticmethod
 	def getDirectoryFromFilePath(file_path):
 		file_info = QFileInfo(file_path)
-		return unicode(file_info.path())
+		return file_info.path()
 
 	@staticmethod
 	def showOpenFileDialog(default_directory=None):
 		if default_directory is None:
 			default_directory = File.LAST_OPENED_PATH
-		file_path = QFileDialog.getOpenFileName(None, "Open File", default_directory)
-		if not file_path.isEmpty():
+		file_path, _ = QFileDialog.getOpenFileName(None, "Open File", default_directory)
+		if file_path:
 			File.LAST_OPENED_PATH = File.getDirectoryFromFilePath(file_path)
-		return unicode(file_path)
+		return file_path
 
 	@staticmethod
 	def showSaveFileDialog(parent=None, file_name=None):
-		file_path = QFileDialog.getSaveFileName(parent, "Save File As", file_name)
-		return unicode(file_path)
+		file_path, _ = QFileDialog.getSaveFileName(parent, "Save File As", file_name)
+		return file_path
 
 	@staticmethod
 	def readContentFromFilePath(file_path):
 		f = File(file_path)
-		return unicode(f.readContent())
+		return f.readContent()
 
 	@staticmethod
 	def writeContentToFilePath(content, file_path):
@@ -101,7 +101,7 @@ class File(object):
 	def _openFile(self, open_mode):
 		self._file_descriptor = QFile(self._file_path)
 		if not self._file_descriptor.open(open_mode):
-			raise FileError(unicode(self._file_descriptor.errorString()))
+			raise FileError(str(self._file_descriptor.errorString()))
 
 	def _closeFile(self):
 		if self._file_descriptor is not None:
@@ -109,7 +109,7 @@ class File(object):
 
 	def _readContentFromFileDescriptor(self):
 		stream = self._getStreamFromFileDescriptor()
-		return unicode(stream.readAll())
+		return stream.readAll()
 
 	def _writeContentOnFileDescriptor(self, content):
 		stream = self._getStreamFromFileDescriptor()

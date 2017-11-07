@@ -21,7 +21,7 @@ class LogsParser(object):
 	Extracts errors from pdflatex output logs
 	"""
 
-	ERROR_REGEXP = re.compile(r"^.*\:(?P<line>[0-9]+): (?P<error>.+)$")
+	ERROR_REGEXP = re.compile(r"^.*:(?P<line>[0-9]+): (?P<error>.+)$")
 	UNDEFINED_CSEQ_REGEXP = re.compile(r".*(?P<seq>\\[^ ]*) ?$")
 
 	def __init__(self):
@@ -31,7 +31,7 @@ class LogsParser(object):
 
 	@property
 	def errors(self):
-		return sorted(self._errors, key=lambda error: error[0])
+		return sorted(self._errors, key=lambda error: error[0] if error[0] is not None else 0)
 
 	@errors.setter
 	def errors(self, errors):
@@ -71,7 +71,7 @@ class LogsParser(object):
 			if line == "":
 				continue
 
-			elif waiting_undefined_control_sequence:
+			if waiting_undefined_control_sequence:
 				match_cseq = LogsParser.UNDEFINED_CSEQ_REGEXP.match(line)
 				if match_cseq:
 					error_message = "Undefined control sequence %s." % match_cseq.group("seq")

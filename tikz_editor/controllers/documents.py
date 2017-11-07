@@ -13,10 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
-import factory
+from PyQt5.QtCore import *
+from . import factory
 
 
 class DocumentsController(object):
@@ -70,7 +68,6 @@ class DocumentsController(object):
 		for d in self.documents:
 			d.close()
 
-	@pyqtSlot()
 	def _documentClosed(self, document):
 		"""
 		Removes a closed document from the documents list. Called by the document

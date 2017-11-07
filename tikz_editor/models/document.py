@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
-from preferences import PreferencesModel as Preferences
+from .preferences import PreferencesModel as Preferences
 from tikz_editor.tools import File
 from tikz_editor.tools import documentIO
 
@@ -32,7 +32,7 @@ class DocumentModel(QObject):
 	"""
 
 	LAST_CREATED_DOCUMENT_ID = 0
-	DEFAULT_SOURCE = unicode("\\begin{tikzpicture}\n\n\\end{tikzpicture}")
+	DEFAULT_SOURCE = "\\begin{tikzpicture}\n\n\\end{tikzpicture}"
 
 	sourceChangedSignal = pyqtSignal(str)
 	preambleChangedSignal = pyqtSignal(str)
@@ -61,8 +61,8 @@ class DocumentModel(QObject):
 			if File.exists(self.file_path):
 				(self.preamble, self.source) = documentIO.readPreambleAndSourceFromFilePath(self.file_path)
 			self.dirty = False
-		except Exception, e:
-			raise DocumentError("The document cannot be opened: %s" % unicode(e))
+		except Exception as e:
+			raise DocumentError("The document cannot be opened: %s" % str(e))
 
 	def save(self):
 		"""
@@ -73,8 +73,8 @@ class DocumentModel(QObject):
 			template = Preferences.getLatexFileTemplate()
 			documentIO.writeDocumentToFilePath(template, self, self.file_path)
 			self.dirty = False
-		except Exception, e:
-			raise DocumentError("The document cannot be saved: %s" % unicode(e))
+		except Exception as e:
+			raise DocumentError("The document cannot be saved: %s" % str(e))
 
 	@property
 	def file_path(self):
@@ -117,7 +117,6 @@ class DocumentModel(QObject):
 
 	@source.setter
 	def source(self, source):
-		source = unicode(source)
 		if self._source != source:
 			self._source = source
 			self.sourceChangedSignal.emit(source)
@@ -133,7 +132,6 @@ class DocumentModel(QObject):
 
 	@preamble.setter
 	def preamble(self, preamble):
-		preamble = unicode(preamble)
 		if self._preamble != preamble:
 			self._preamble = preamble
 			self.preambleChangedSignal.emit(preamble)

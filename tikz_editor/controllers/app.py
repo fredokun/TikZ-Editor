@@ -13,8 +13,9 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 import tikz_editor.globals.actions as actions
 from tikz_editor.models import Preferences
@@ -124,9 +125,10 @@ class AppController(QObject):
 		snippets_menu = self.actions[actions.SNIPPETS_MENU]
 		snippets_menu.clear()
 		snippets = Preferences.getSnippets()
-		for snippet_name in sorted(snippets.iterkeys()):
+		for snippet_name in sorted(snippets.keys()):
 			snippet_code = snippets[snippet_name]
-			action = ActionFactory.createAction(self, snippet_name, "Insert \"%s\" Snippet" % snippet_name, None, self.insertSnippet)
+			action = ActionFactory.createAction(self, snippet_name, "Insert \"%s\" Snippet" % snippet_name, None,
+												self.insertSnippet)
 			action.setData(QVariant(snippet_code))
 			snippets_menu.addAction(action)
 
@@ -154,155 +156,135 @@ class AppController(QObject):
 				method()
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def about(self):
 		try:
 			self.about_controller.showAbout()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def close(self):
 		try:
 			active_window = QApplication.activeWindow()
 			if active_window is not None:
 				active_window.close()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def copy(self):
 		self._doActionOnFocusedWidget("copy")
 
-	@pyqtSlot()
 	def copySource(self):
 		try:
 			if self.documentHasFocus():
 				addToClipboard(self.focused_document.model.source)
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def copyPreamble(self):
 		try:
 			if self.documentHasFocus():
 				addToClipboard(self.focused_document.model.preamble)
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def copyPreambleAndSource(self):
 		try:
 			if self.documentHasFocus():
 				addToClipboard("%s\n\n%s" % (self.focused_document.model.preamble, self.focused_document.model.source))
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def cut(self):
 		self._doActionOnFocusedWidget("cut")
 
-	@pyqtSlot()
 	def new(self):
 		try:
 			self.documents_controller.openEmptyDocument()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def open(self, file_path=None):
 		try:
-			if file_path is None:
+			if file_path is None or file_path is False:
 				file_path = File.showOpenFileDialog()
 			if file_path != "":
 				self.documents_controller.openDocument(file_path)
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def paste(self):
 		self._doActionOnFocusedWidget("paste")
 
-	@pyqtSlot()
 	def showPreferences(self):
-
 		try:
 			self.preferences_controller.showPreferences()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def preview(self):
 		try:
 			if self.documentHasFocus():
 				self.focused_document.preview()
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def redo(self):
 		self._doActionOnFocusedWidget("redo")
 
-	@pyqtSlot()
 	def quit(self):
 		try:
 			self.documents_controller.closeAllDocuments()
 			TemporaryDirectory.delete()
 			QApplication.quit()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def save(self):
 		try:
 			if self.documentHasFocus():
 				self.focused_document.save()
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def saveAll(self):
 		try:
 			self.documents_controller.saveAllDocuments()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def saveAs(self):
 		try:
 			if self.documentHasFocus():
 				self.focused_document.saveAs()
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)
 
-	@pyqtSlot()
 	def undo(self):
 		self._doActionOnFocusedWidget("undo")
 
-	@pyqtSlot()
 	def insertSnippet(self):
 		try:
 			action = self.sender()
-			snippet = unicode(action.data().toString())
+			snippet = action.data()
 			editor = QApplication.focusWidget()
 			if isinstance(editor, EditorView):
 				editor.insertSnippet(snippet)
 			else:
 				QApplication.beep()
-		except Exception, e:
+		except Exception as e:
 			Dialogs.showError(e)

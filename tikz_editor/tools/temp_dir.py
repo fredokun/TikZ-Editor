@@ -38,7 +38,7 @@ class TemporaryDirectory(object):
 	def generate():
 		try:
 			TemporaryDirectory.temporary_directory = tempfile.mkdtemp(prefix="tikz_")
-		except Exception, e:
+		except Exception as e:
 			raise TemporaryDirectoryError("Can't create a temporary directory: %s" % str(e))
 
 	@staticmethod

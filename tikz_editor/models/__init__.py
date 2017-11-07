@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from document import DocumentModel, DocumentError
-from preferences import PreferencesModel as Preferences
-from factory import DocumentFactory
+from .document import DocumentModel, DocumentError
+from .preferences import PreferencesModel as Preferences
+from .factory import DocumentFactory
 
 __all__ = ["DocumentModel", "DocumentError", "DocumentFactory", "Preferences"]
