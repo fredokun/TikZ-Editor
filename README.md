@@ -10,6 +10,9 @@ file.
 
 TikZ Editor is an editor for the LaTeX graphic package TikZ.
 
+> **Note**: the `master` branch of development requires Python3 and QT5, a Python2/QT4 version
+> is maintained in branch `py2qt4`.
+
 ![Main Window](http://github.com/fredokun/TikZ-Editor/wiki/images/screenshot1.png)
 
 
