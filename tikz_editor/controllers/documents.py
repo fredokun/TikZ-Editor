@@ -14,7 +14,6 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt5.QtCore import *
-from . import factory
 
 
 class DocumentsController(object):
@@ -47,6 +46,7 @@ class DocumentsController(object):
 		"""
 		Creates a document controller and adds it to the docs list.
 		"""
+		from . import factory
 		doc = factory.ControllerFactory.createDocumentController(self.app_controller, file_path)
 		doc.documentClosedSignal.connect(self._documentClosed)
 		self.documents.append(doc)

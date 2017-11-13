@@ -47,6 +47,33 @@ class PreferencesModel(object):
 	PREVIEW_THRESHOLD = "PreviewThreshold"
 	AUTO_PREVIEW = "AutoPreview"
 
+	# on some systems, all preferences are stored as strings.
+	# The system can convert strings to python types if provided hints.
+	# `None` means provide no hint as to the type.
+	# see http://pyqt.sourceforge.net/Docs/PyQt5/pyqt_qsettings.html
+	PREFERENCE_TYPES = {
+		WINDOW_GEOMETRY: None,
+		EDITOR_SPLITTER_STATE: None,
+		MAIN_SPLITTER_STATE: None,
+		SELECTED_FEEDBACK_VIEW: None,
+		LATEX_FILE_TEMPLATE: str,
+		PREAMBLE_TEMPLATE: str,
+		PREVIEW_TEMPLATE: str,
+		LATEX_TO_PDF_COMMAND: str,
+		PDF_TO_IMAGE_COMMAND: str,
+		EDITOR_FONT: None,
+		FILE_ENCODING: str,
+		LINE_ENDINGS: str,
+		INDENTATION_TYPE: str,
+		INDENTATION_SIZE: int,
+		AUTO_WRAP: bool,
+		SHOW_ERROR_MARKERS: bool,
+		SHOW_ERROR_ANNOTATIONS: bool,
+		SNIPPETS: None,
+		PREVIEW_THRESHOLD: int,
+		AUTO_PREVIEW: bool
+	}
+
 	FEEDBACK_LOGS_VIEW = 0
 	FEEDBACK_ERRORS_VIEW = 1
 	ENCODING_UTF8 = 1
@@ -69,10 +96,18 @@ class PreferencesModel(object):
 	@staticmethod
 	def getValueOrDefault(key, default_value):
 		settings = QSettings()
-		if default_value is not None:
-			value = settings.value(key, QVariant(default_value))
+
+		setting_type = PreferencesModel.PREFERENCE_TYPES.get(key, None)
+		if setting_type is None:
+			if default_value is not None:
+				value = settings.value(key, QVariant(default_value))
+			else:
+				value = settings.value(key)
 		else:
-			value = settings.value(key)
+			if default_value is not None:
+				value = settings.value(key, QVariant(default_value), type=setting_type)
+			else:
+				value = settings.value(key, type=setting_type)
 		return value
 
 	@staticmethod
