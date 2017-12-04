@@ -141,6 +141,8 @@ class EditorView(QsciScintilla):
 	def loadUserPreferences(self):
 		# editor font
 		font = Preferences.getEditorFont()
+		font.setPointSize(12)
+
 		self.setFont(font)
 		lexer = LexerTikZ()
 		lexer.setDefaultFont(font)
