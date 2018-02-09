@@ -76,25 +76,9 @@ deb: clean_deb
 
 # Build a Mac OS X APP bundle
 app: clean_app
-ifeq ($(PYINSTALLER),)
-	@echo "The path to pyinstaller is not set in PYINSTALLER.\n\
-	Try:\tPYINSTALLER=\"path/to/pyinstaller\" make app"
-else
-	python $(PYINSTALLER)/pyinstaller.py -wy \
-		-n "$(APP_NAME)" \
-		-i "deployment/mac/icon.icns" \
-		tikz_editor.pyw
-	rm -rf "dist/$(APP_NAME)"
-	cp "deployment/mac/icon.icns" "dist/$(APP_NAME).app/Contents/Resources/icon-windowed.icns"
-
-	ln -s /Applications dist
-	hdiutil create -fs HFS+ -volname "$(APP_NAME)" -srcfolder dist "dist/$(APP_NAME)-$(APP_VERSION).dmg"
-	#hdiutil internet-enable -yes "dist/$(APP_NAME)-$(APP_VERSION).dmg"
-	rm dist/Applications
-
+	pip3 install sip PyQt5 qscintilla
+	python3 ./setup.py py2app
 	open dist
-endif
-
 
 #####################
 # Cleaning commands #
