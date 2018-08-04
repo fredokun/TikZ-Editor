@@ -17,4 +17,9 @@ setup(
     data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
+    install_requires=[
+      "sip >= 4",
+      "PyQt5 >= 5.4",
+      "qscintilla  >= 2.0",
+    ],
 )
