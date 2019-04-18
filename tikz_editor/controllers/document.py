@@ -16,6 +16,8 @@
 from PyQt5.QtCore import *
 
 from tikz_editor.tools import File
+from tikz_editor.tools import TemporaryDirectory
+from tikz_editor.tools.latex2image import Converter
 
 
 class DocumentController(QObject):
@@ -83,6 +85,11 @@ class DocumentController(QObject):
 		if file_path:
 			self.model.file_path = file_path
 			self.model.save()
+
+	def export(self):
+		file_path = File.showSaveFileDialog(self.view, "%s.pdf" % self.model.title)
+		if file_path:
+			self.model.export(file_path, self.preview_controller.latex2image_converter)
 
 	def _getDocumentFileName(self):
 		file_name = self.model.file_path
