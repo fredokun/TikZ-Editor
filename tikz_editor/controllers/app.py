@@ -62,6 +62,7 @@ class AppController(QObject):
 		self.actions[actions.SAVE] = ActionFactory.createAction(self, "Save", "Save the document", QKeySequence.Save, self.save)
 		self.actions[actions.SAVE_ALL] = ActionFactory.createAction(self, "Save All", "Save all documents", None, self.saveAll)
 		self.actions[actions.SAVE_AS] = ActionFactory.createAction(self, "Save As...", "Save the document as...", QKeySequence.SaveAs, self.saveAs)
+		self.actions[actions.EXPORT] = ActionFactory.createAction(self, "Export", "Export document as PDF", None, self.export)
 		self.actions[actions.UNDO] = ActionFactory.createAction(self, "Undo", "Undo last action", QKeySequence.Undo, self.undo)
 
 	def _createMenuBar(self):
@@ -84,6 +85,7 @@ class AppController(QObject):
 			self.actions[actions.SAVE],
 			self.actions[actions.SAVE_AS],
 			self.actions[actions.SAVE_ALL],
+			self.actions[actions.EXPORT],
 			None,
 			self.actions[actions.PREVIEW],
 			None,
@@ -269,6 +271,15 @@ class AppController(QObject):
 		try:
 			if self.documentHasFocus():
 				self.focused_document.saveAs()
+			else:
+				QApplication.beep()
+		except Exception as e:
+			Dialogs.showError(e)
+
+	def export(self):
+		try:
+			if self.documentHasFocus():
+				self.focused_document.export()
 			else:
 				QApplication.beep()
 		except Exception as e:

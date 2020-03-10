@@ -76,6 +76,10 @@ class Converter(QObject):
 		self._convert_process.error.connect(self._pdfToImageConversionError)
 		self._convert_process.finished.connect(self._pdfToImageConversionFinished)
 
+	def waitForFinished(self):
+		self._latex_process.waitForFinished()
+		self._convert_process.waitForFinished()
+
 	def stopConversion(self):
 		self._stopping_conversion = True
 		self._killProcesses()

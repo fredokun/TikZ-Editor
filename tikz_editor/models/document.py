@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License along
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import shutil
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
@@ -75,6 +77,20 @@ class DocumentModel(QObject):
 			self.dirty = False
 		except Exception as e:
 			raise DocumentError("The document cannot be saved: %s" % str(e))
+
+	def export(self, file_path, converter):
+		"""
+		To export the document as PDF, the source is converted using the
+		latex2image converter.
+		"""
+		try:
+			template = Preferences.getPreviewTemplate()
+			source = documentIO.buildFileContentFromDocument(template, self)
+			converter.convertLatexToImage(source)
+			converter.waitForFinished()
+			shutil.copyfile(converter.pdf_file_path, file_path)
+		except Exception as e:
+			raise DocumentError("The document cannot be exported: %s" % str(e))
 
 	@property
 	def file_path(self):
