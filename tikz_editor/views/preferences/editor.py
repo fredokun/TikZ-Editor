@@ -34,6 +34,7 @@ class EditorPreferencesView(QWidget):
 	autoWrapChangedSignal = pyqtSignal(bool)
 	errorMarkersChangedSignal = pyqtSignal(bool)
 	errorAnnotationsChangedSignal = pyqtSignal(bool)
+	selectTagsChangedSignal = pyqtSignal(bool)
 	autoPreviewChangedSignal = pyqtSignal(bool)
 	previewThresholdChangedSignal = pyqtSignal(int)
 
@@ -61,6 +62,7 @@ class EditorPreferencesView(QWidget):
 		self.wrap_choice = QCheckBox("Auto-wrap lines")
 		self.error_markers_choice = QCheckBox("Show error marker in margin of erroneous lines")
 		self.error_annotations_choice = QCheckBox("Show error annotations beneath erroneous lines")
+		self.select_tags_choice = QCheckBox("Allow selection of \\begin/\\end tikzpicture tags")
 
 		self.preview_choice = QCheckBox("Trigger preview after stopping edition for")
 		self.preview_threshold_choice = QSpinBox()
@@ -80,6 +82,7 @@ class EditorPreferencesView(QWidget):
 		self.wrap_choice.stateChanged.connect(self._autoWrapChanged)
 		self.error_markers_choice.stateChanged.connect(self._errorMarkersChanged)
 		self.error_annotations_choice.stateChanged.connect(self._errorAnnotationsChanged)
+		self.select_tags_choice.stateChanged.connect(self._selectTagsChanged)
 		self.preview_choice.stateChanged.connect(self._autoPreviewChanged)
 		self.preview_threshold_choice.valueChanged.connect(self._previewThresholdChanged)
 
@@ -125,6 +128,7 @@ class EditorPreferencesView(QWidget):
 		layout.addRow(self.wrap_choice)
 		layout.addRow(self.error_markers_choice)
 		layout.addRow(self.error_annotations_choice)
+		layout.addRow(self.select_tags_choice)
 		layout.addRow(tikz_editor.views.factory.ViewFactory.createLineSeparator())
 		sublayout2 = QHBoxLayout()
 		sublayout2.addWidget(self.preview_choice)
@@ -160,6 +164,9 @@ class EditorPreferencesView(QWidget):
 
 	def _errorAnnotationsChanged(self, state):
 		self.errorAnnotationsChangedSignal.emit(state)
+
+	def _selectTagsChanged(self, state):
+		self.selectTagsChangedSignal.emit(state)
 
 	def _autoPreviewChanged(self, state):
 		self.autoPreviewChangedSignal.emit(state)
@@ -234,6 +241,14 @@ class EditorPreferencesView(QWidget):
 	@error_annotations.setter
 	def error_annotations(self, value):
 		self.error_annotations_choice.setChecked(value)
+
+	@property
+	def select_tags(self):
+		return self.select_tags_choice.isChecked()
+
+	@auto_wrap.setter
+	def select_tags(self, value):
+		self.select_tags_choice.setChecked(value)
 
 	@property
 	def auto_preview(self):

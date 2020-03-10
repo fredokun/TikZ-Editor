@@ -17,6 +17,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
+from tikz_editor.models import Preferences
 import tikz_editor.globals.actions as actions
 from tikz_editor.tools.qt import ActionFactory, ToolBarFactory
 
@@ -107,27 +108,31 @@ class ContentView(QMainWindow):
 			QApplication.beep()
 
 	def _sourceCursorPositionChanged(self, line, index):
-		source = self.source_editor_view
-		content = source.content
-		if not (content.startswith("\\begin{tikzpicture}") and content.startswith("\\begin{tikzpicture")):
-			source.content = "\\begin{tikzpicture}" + content[18:]
-		if line == 0 and index < 20:
-			source.setCursorPosition(0, 19)
-			source.setReadOnly(True)
-		elif line == source.lines() - 1:
-			source.setCursorPosition(source.lines() - 2, source.lineSize(source.lines() - 1))
-			source.setReadOnly(True)
+		select_tags = Preferences.getSelectTags()
+		if(not select_tags):
+			source = self.source_editor_view
+			content = source.content
+			if not (content.startswith("\\begin{tikzpicture}") and content.startswith("\\begin{tikzpicture")):
+				source.content = "\\begin{tikzpicture}" + content[18:]
+			if line == 0 and index < 20:
+				source.setCursorPosition(0, 19)
+				source.setReadOnly(True)
+			elif line == source.lines() - 1:
+				source.setCursorPosition(source.lines() - 2, source.lineSize(source.lines() - 1))
+				source.setReadOnly(True)
 
 	def _sourceSelectionChanged(self):
-		source = self.source_editor_view
-		(line_from, index_from, line_to, index_to) = source.getSelection()
-		selection_changed = False
-		if line_from == 0 and index_from < 19:
-			index_from = 19
-			selection_changed = True
-		if line_to == source.lines() - 1:
-			line_to = source.lines() - 2
-			index_to = source.lineSize(line_to + 1)
-			selection_changed = True
-		if selection_changed:
-			source.setSelection(line_from, index_from, line_to, index_to)
+		select_tags = Preferences.getSelectTags()
+		if(not select_tags):
+			source = self.source_editor_view
+			(line_from, index_from, line_to, index_to) = source.getSelection()
+			selection_changed = False
+			if line_from == 0 and index_from < 19:
+				index_from = 19
+				selection_changed = True
+			if line_to == source.lines() - 1:
+				line_to = source.lines() - 2
+				index_to = source.lineSize(line_to + 1)
+				selection_changed = True
+			if selection_changed:
+				source.setSelection(line_from, index_from, line_to, index_to)
