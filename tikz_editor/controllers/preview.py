@@ -83,7 +83,7 @@ class PreviewController(QObject):
 		if elapsed_ms >= preview_threshold:
 			self.updatePreview()
 		else:
-			wait_for = max(100, Preferences.getPreviewThreshold() / 2)
+			wait_for = int(max(100, Preferences.getPreviewThreshold() / 2))
 			QTimer.singleShot(wait_for, self.updatePreviewAfterTypingPause)
 
 	def updatePreview(self):
